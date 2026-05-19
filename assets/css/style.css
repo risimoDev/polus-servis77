@@ -61,6 +61,7 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--red) var(--blue-dark);
+  overflow-x: hidden;
 }
 
 body {
@@ -1516,6 +1517,27 @@ blockquote { quotes: none; }
 
   /* Logo: tighten gap */
   .logo { gap: 8px; }
+
+  /* Mobile: disable expensive GPU animations */
+  /* filter:blur(80px) on animated orbs is the biggest compositor killer */
+  .hero__orb {
+    filter: none;
+    animation: none;
+    will-change: auto;
+    opacity: 0.12;
+  }
+  /* Disable rotating shapes */
+  .hero__shape { animation: none; }
+  /* Disable drifting scan lines (inset:-50% element is 200% wide) */
+  .hero__scanlines::before,
+  .hero__scanlines::after { animation: none; opacity: 0; }
+  /* Free compositor layers — too many promoted elements on mobile */
+  .js-reveal,
+  .js-reveal-left,
+  .js-reveal-right { will-change: auto; }
+  /* Disable floating badges */
+  .about__badge-float--1,
+  .about__badge-float--2 { animation: none; }
 }
 
 /* Small phones → 380px */
@@ -1712,6 +1734,13 @@ blockquote { quotes: none; }
     transition-duration: 0.01ms !important;
   }
   html { scroll-behavior: auto; }
+  .js-reveal,
+  .js-reveal-left,
+  .js-reveal-right {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
 }
 
 /* ── HERO SPLIT LAYOUT ──────────────────────────────────────── */
@@ -2147,4 +2176,34 @@ blockquote { quotes: none; }
 /* Brands — ensure items don't wrap weirdly */
 @media (max-width: 640px) {
   .brands__item { padding-inline: 18px; font-size: 11px; }
+}
+
+/* Hero split layout — collapse to single column on tablet/mobile */
+@media (max-width: 900px) {
+  .hero__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__inner .hero__content {
+    max-width: 640px;
+  }
+
+  /* Reduce blueprint panel size on tablet */
+  .hero__blueprint {
+    max-width: 420px;
+    margin-inline: auto;
+    width: 100%;
+    opacity: 0.85;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Hide blueprint panel on phones — text content is primary */
+  .hero__blueprint { display: none; }
+
+  /* Restore full-width content */
+  .hero__inner .hero__content {
+    max-width: none;
+    padding-block: clamp(32px, 8vw, 56px);
+  }
 }

@@ -558,3 +558,12 @@ const raf = requestAnimationFrame;
     track.style.animation = 'none';
   }
 })();
+
+/* ── MOBILE: pause SMIL animations in hero SVG ──────────────── */
+(function pauseMobileSvgAnimations() {
+  if (window.innerWidth > 640) return;
+  const pipes = document.querySelector('.hero__pipes');
+  if (pipes && typeof pipes.pauseAnimations === 'function') {
+    pipes.pauseAnimations();
+  }
+})();
