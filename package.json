@@ -1,0 +1,39 @@
+{
+  "name": "polus-servis77",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Полюс Сервис 77 — heating equipment platform",
+  "scripts": {
+    "dev":          "tsx watch server/index.ts",
+    "build":        "tsc --project tsconfig.json",
+    "start":        "node dist/server/index.js",
+    "db:generate":  "prisma generate",
+    "db:migrate":   "prisma migrate dev",
+    "db:push":      "prisma db push",
+    "db:studio":    "prisma studio",
+    "db:seed":      "tsx prisma/seed.ts",
+    "typecheck":    "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fastify/cors":        "^9.0.1",
+    "@fastify/multipart":   "^8.3.0",
+    "@fastify/rate-limit":  "^9.1.0",
+    "@fastify/static":      "^7.0.4",
+    "@prisma/client":       "^5.22.0",
+    "bcryptjs":             "^2.4.3",
+    "fastify":              "^4.28.1",
+    "jsonwebtoken":         "^9.0.2",
+    "nodemailer":           "^6.9.16",
+    "zod":                  "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcryptjs":      "^2.4.6",
+    "@types/jsonwebtoken":  "^9.0.7",
+    "@types/node":          "^22.0.0",
+    "@types/nodemailer":    "^6.4.17",
+    "prisma":               "^5.22.0",
+    "tsx":                  "^4.19.2",
+    "typescript":           "^5.6.3"
+  }
+}

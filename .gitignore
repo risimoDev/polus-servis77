@@ -1,0 +1,30 @@
+# Node
+node_modules/
+dist/
+.npm/
+.claude
+# Environment
+.env
+.env.local
+.env.production
+
+# Logs
+storage/logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Docker volumes (local data)
+postgres_data/
+
+# PHP legacy (kept for reference but not installed)
+vendor/
+
+# Prisma — generated migrations committed, but local shadow DB not needed
+prisma/.env

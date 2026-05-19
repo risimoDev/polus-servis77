@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /send.php
+
+Sitemap: https://polus-servis77.ru/sitemap.xml

@@ -1,0 +1,21 @@
+{
+    "name": "polus-servis77/site",
+    "description": "Полюс Сервис 77 — heating equipment platform",
+    "type": "project",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "scripts": {
+        "migrate": "php migrations/run.php"
+    }
+}

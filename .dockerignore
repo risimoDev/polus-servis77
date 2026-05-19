@@ -1,0 +1,9 @@
+node_modules
+dist
+.git
+.env
+*.log
+storage/logs
+storage/cache
+postgres_data
+nginx/ssl

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Панель управления — Полюс Сервис 77</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+
+  <div class="admin" id="js-admin">
+
+    <!-- ── SIDEBAR ────────────────────────────────────────────── -->
+    <aside class="sidebar" id="js-sidebar">
+      <div class="sidebar__head">
+        <a href="../" class="sidebar__logo" title="На сайт">
+          <svg class="sidebar__logo-mark" viewBox="0 0 32 40" fill="none" aria-hidden="true">
+            <rect x="0"  y="16" width="6" height="24" rx="3" fill="#E31B2E"/>
+            <rect x="9"  y="8"  width="6" height="32" rx="3" fill="#E31B2E"/>
+            <rect x="18" y="0"  width="6" height="40" rx="3" fill="#E31B2E"/>
+          </svg>
+          <div class="sidebar__logo-text">
+            <span class="sidebar__site-name">Полюс Сервис</span>
+            <span class="sidebar__site-tag">Admin</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="sidebar__nav" aria-label="Навигация панели управления">
+        <ul class="sidebar__list" role="list">
+          <li>
+            <a href="#" class="sidebar__link" data-nav="dashboard">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              Дашборд
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__link" data-nav="leads">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 9.68a19.79 19.79 0 01-3.07-8.67A2 2 0 012.88 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              Заявки
+              <span class="sidebar__badge" id="js-leads-badge">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__link" data-nav="orders">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              Заказы
+            </a>
+          </li>
+          <li class="sidebar__group-label">Каталог</li>
+          <li>
+            <a href="#" class="sidebar__link" data-nav="products">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+              Товары
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__link" data-nav="categories">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+              Категории
+            </a>
+          </li>
+          <li class="sidebar__group-label">Сообщество</li>
+          <li>
+            <a href="#" class="sidebar__link" data-nav="users">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              Пользователи
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar__link" data-nav="forum">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              Форум
+            </a>
+          </li>
+          <li class="sidebar__divider"></li>
+          <li>
+            <a href="#" class="sidebar__link" data-nav="settings">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+              Настройки
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar__foot">
+        <div class="sidebar__user">
+          <div class="sidebar__avatar" id="js-user-avatar">А</div>
+          <div class="sidebar__user-info">
+            <div class="sidebar__user-name" id="js-user-name">Администратор</div>
+            <div class="sidebar__user-role">admin</div>
+          </div>
+        </div>
+        <button class="sidebar__logout" id="js-logout" title="Выйти" aria-label="Выйти">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ── MAIN ───────────────────────────────────────────────── -->
+    <div class="admin__main">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <button class="topbar__burger" id="js-sidebar-toggle" aria-label="Меню" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <h1 class="topbar__title" id="js-page-title">Дашборд</h1>
+        <div class="topbar__right">
+          <a href="../" class="topbar__site-link" target="_blank" rel="noopener" title="Открыть сайт">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Сайт
+          </a>
+          <span class="topbar__date" id="js-topbar-date"></span>
+        </div>
+      </header>
+
+      <!-- Pages -->
+      <main class="admin__content" id="js-content">
+
+        <!-- DASHBOARD -->
+        <section class="page" id="page-dashboard">
+          <div class="kpi-row">
+            <article class="kpi-card kpi-card--red">
+              <div class="kpi-card__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 9.68a19.79 19.79 0 01-3.07-8.67A2 2 0 012.88 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              </div>
+              <div class="kpi-card__body">
+                <div class="kpi-card__label">Новых заявок</div>
+                <div class="kpi-card__value">—</div>
+              </div>
+            </article>
+            <article class="kpi-card kpi-card--blue">
+              <div class="kpi-card__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              </div>
+              <div class="kpi-card__body">
+                <div class="kpi-card__label">Заказов сегодня</div>
+                <div class="kpi-card__value">—</div>
+              </div>
+            </article>
+            <article class="kpi-card kpi-card--red">
+              <div class="kpi-card__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+              </div>
+              <div class="kpi-card__body">
+                <div class="kpi-card__label">Товаров</div>
+                <div class="kpi-card__value">—</div>
+              </div>
+            </article>
+            <article class="kpi-card kpi-card--blue">
+              <div class="kpi-card__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              </div>
+              <div class="kpi-card__body">
+                <div class="kpi-card__label">Пользователей</div>
+                <div class="kpi-card__value">—</div>
+              </div>
+            </article>
+          </div>
+
+          <div class="dash-row">
+            <div class="admin-card">
+              <div class="admin-card__head">
+                <h2 class="admin-card__title">Последние заявки</h2>
+                <button class="text-btn" data-nav="leads">Все заявки</button>
+              </div>
+              <table class="data-table">
+                <thead><tr><th>Имя</th><th>Телефон</th><th>Дата</th></tr></thead>
+                <tbody id="js-dash-leads"><tr><td colspan="3" class="data-table__empty">Загрузка...</td></tr></tbody>
+              </table>
+            </div>
+            <div class="admin-card">
+              <div class="admin-card__head">
+                <h2 class="admin-card__title">Последние заказы</h2>
+                <button class="text-btn" data-nav="orders">Все заказы</button>
+              </div>
+              <table class="data-table">
+                <thead><tr><th>#</th><th>Клиент</th><th>Сумма</th><th>Статус</th></tr></thead>
+                <tbody id="js-dash-orders"><tr><td colspan="4" class="data-table__empty">Загрузка...</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- LEADS -->
+        <section class="page" id="page-leads" hidden>
+          <div class="page-actions">
+            <input type="search" class="search-input" placeholder="Поиск по имени, телефону...">
+          </div>
+          <div class="admin-card">
+            <table class="data-table">
+              <thead><tr><th>Имя</th><th>Телефон</th><th>E-mail</th><th>Сообщение</th><th>Дата</th></tr></thead>
+              <tbody id="js-leads-table"><tr><td colspan="5" class="data-table__empty">Загрузка...</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ORDERS -->
+        <section class="page" id="page-orders" hidden>
+          <div class="page-actions">
+            <input type="search" class="search-input" placeholder="Поиск заказов...">
+            <select class="select-input" id="js-orders-status">
+              <option value="">Все статусы</option>
+              <option value="new">Новый</option>
+              <option value="confirmed">Подтверждён</option>
+              <option value="shipping">Доставка</option>
+              <option value="done">Выполнен</option>
+              <option value="cancelled">Отменён</option>
+            </select>
+          </div>
+          <div class="admin-card">
+            <table class="data-table">
+              <thead><tr><th>#</th><th>Клиент</th><th>Телефон</th><th>Сумма</th><th>Статус</th><th>Дата</th><th></th></tr></thead>
+              <tbody id="js-orders-table"><tr><td colspan="7" class="data-table__empty">Загрузка...</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- PRODUCTS -->
+        <section class="page" id="page-products" hidden>
+          <div class="page-actions">
+            <input type="search" class="search-input" placeholder="Поиск товаров...">
+            <button class="btn-admin" id="js-add-product">+ Добавить товар</button>
+          </div>
+          <div class="admin-card">
+            <table class="data-table">
+              <thead><tr><th>ID</th><th>Название</th><th>Категория</th><th>Цена</th><th>Остаток</th><th>Активен</th><th></th></tr></thead>
+              <tbody id="js-products-table"><tr><td colspan="7" class="data-table__empty">Загрузка...</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- CATEGORIES / USERS / FORUM / SETTINGS — placeholder pages -->
+        <section class="page" id="page-categories" hidden>
+          <div class="admin-card admin-card--wip">
+            <div class="wip-label">Управление категориями — в разработке</div>
+          </div>
+        </section>
+        <section class="page" id="page-users" hidden>
+          <div class="admin-card admin-card--wip">
+            <div class="wip-label">Управление пользователями — в разработке</div>
+          </div>
+        </section>
+        <section class="page" id="page-forum" hidden>
+          <div class="admin-card admin-card--wip">
+            <div class="wip-label">Управление форумом — в разработке</div>
+          </div>
+        </section>
+        <section class="page" id="page-settings" hidden>
+          <div class="admin-card admin-card--wip">
+            <div class="wip-label">Настройки — в разработке</div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>
