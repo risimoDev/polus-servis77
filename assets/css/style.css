@@ -1541,11 +1541,24 @@ blockquote { quotes: none; }
   /* Header */
   .header__cta .btn { display: none; }
 
+  /* Section typography */
+  .section-sub { font-size: 15px; max-width: 100%; }
+  .section-header { margin-bottom: clamp(28px, 8vw, 48px); }
+
   /* Contact */
-  .contact__grid { gap: 32px; }
+  .contact__grid { gap: 28px; }
+  .contact__info { max-width: none; }
+  .contact__item { padding: 12px 14px; }
+  .contact__item strong { font-size: 15px; }
 
   /* Footer */
-  .footer__bottom { flex-direction: column; text-align: center; }
+  .footer__bottom { flex-direction: column; text-align: center; gap: 10px; }
+  .footer__phone { font-size: 18px; }
+  .footer__grid { gap: 28px; }
+
+  /* Cards */
+  .adv-card { padding: 24px 20px; }
+  .srv-card { padding: 24px; }
 
   /* About badges — pull them in so they don't overflow on small phones */
   .about__badge-float--1 { right: -8px; bottom: -8px; }
@@ -1898,18 +1911,24 @@ blockquote { quotes: none; }
 .brands__item {
   display: inline-flex;
   align-items: center;
-  white-space: nowrap;
-  font-family: var(--font-head);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.38);
-  padding-inline: 28px;
-  text-transform: uppercase;
-  transition: color var(--dur) var(--ease);
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 10px;
+  padding: 10px 22px;
+  margin-inline: 12px;
+  flex-shrink: 0;
+  transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
 
-.brands__item:hover { color: rgba(255, 255, 255, 0.72); }
+.brands__item:hover { background: #fff; transform: scale(1.04); }
+
+.brands__item img {
+  height: 44px;
+  width: auto;
+  max-width: 130px;
+  object-fit: contain;
+  display: block;
+}
 
 .brands__sep {
   display: inline-block;
@@ -2094,7 +2113,8 @@ blockquote { quotes: none; }
 
 /* Brands — ensure items don't wrap weirdly */
 @media (max-width: 640px) {
-  .brands__item { padding-inline: 18px; font-size: 11px; }
+  .brands__item { padding: 8px 16px; margin-inline: 8px; }
+  .brands__item img { height: 36px; max-width: 100px; }
 }
 
 /* Hero split layout — collapse to single column on tablet/mobile */
@@ -2154,10 +2174,10 @@ blockquote { quotes: none; }
 
 .social-link:hover { transform: translateY(-3px); }
 
-.social-link--wa:hover {
-  border-color: #25D366;
-  color: #25D366;
-  background: rgba(37,211,102,0.12);
+.social-link--tg:hover {
+  border-color: #2AABEE;
+  color: #2AABEE;
+  background: rgba(42,171,238,0.12);
 }
 
 .social-link--max:hover {
@@ -2195,7 +2215,7 @@ blockquote { quotes: none; }
   border-color: rgba(13,21,38,0.15);
   color: rgba(13,21,38,0.50);
 }
-.header.is-scrolled .social-link--wa:hover  { border-color: #25D366; color: #25D366; background: rgba(37,211,102,0.10); }
+.header.is-scrolled .social-link--tg:hover  { border-color: #2AABEE; color: #2AABEE; background: rgba(42,171,238,0.10); }
 .header.is-scrolled .social-link--max:hover { border-color: #845EF7; color: #845EF7; background: rgba(132,94,247,0.10); }
 .header.is-scrolled .social-link--vk:hover  { border-color: #0077FF; color: #0077FF; background: rgba(0,119,255,0.10); }
 
@@ -2228,6 +2248,26 @@ blockquote { quotes: none; }
     border-color var(--dur) var(--ease),
     box-shadow var(--dur) var(--ease),
     transform var(--dur) var(--ease-spring);
+}
+
+.cat-card__img {
+  margin: -36px -32px 0;
+  height: 210px;
+  overflow: hidden;
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  flex-shrink: 0;
+  background: #f4f5f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cat-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 /* Top accent stripe */
@@ -2337,9 +2377,18 @@ blockquote { quotes: none; }
 
 /* Responsive */
 @media (max-width: 900px) {
-  .cat-grid { grid-template-columns: 1fr; max-width: 480px; margin-inline: auto; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  /* Center lone card in second row (3 cards → 2-column grid) */
+  .cat-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: calc(50% - 12px);
+    margin-inline: auto;
+  }
 }
 @media (max-width: 640px) {
+  .cat-grid { grid-template-columns: 1fr; }
+  .cat-card:last-child:nth-child(odd) { grid-column: auto; max-width: none; }
   .cat-card { padding: 28px 24px 24px; }
+  .cat-card__img { margin: -28px -24px 0; height: 180px; }
   .cat-card__title { font-size: 20px; }
 }
