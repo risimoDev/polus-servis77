@@ -4,97 +4,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#060C18">
   <title>Политика конфиденциальности — Полюс Сервис</title>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      line-height: 1.75;
-      color: #0D1526;
-      background: #F5F7FC;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+    /* Always dark header on doc pages regardless of scroll state */
+    #js-header {
+      background: rgba(6, 12, 24, 0.97) !important;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.1);
+      padding-block: 10px;
     }
-    a { color: #1A45E8; text-decoration: underline; }
-    a:hover { color: #E31B2E; }
-
-    .page-header {
-      background: #060C18;
-      padding: 20px 0;
-      border-bottom: 2px solid #E31B2E;
-    }
-    .page-header__inner {
-      width: min(1200px, 100% - 48px);
-      margin-inline: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .page-header__logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: -0.01em;
-    }
-    .page-header__logo span { color: #E31B2E; }
-    .page-header__back {
-      font-size: 14px;
-      color: rgba(255,255,255,0.65);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: color 0.2s;
-    }
-    .page-header__back:hover { color: #fff; }
-    .page-header__back::before { content: '←'; }
-
+    .doc-page { background: var(--off-white); padding-top: 80px; min-height: 100vh; }
     .doc-wrap {
       width: min(860px, 100% - 48px);
       margin-inline: auto;
       padding-block: 56px 80px;
     }
-
     .doc-title {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-head);
       font-size: clamp(26px, 4vw, 38px);
       font-weight: 700;
-      color: #060C18;
+      color: var(--ink);
       line-height: 1.2;
       margin-bottom: 8px;
     }
-    .doc-meta {
-      font-size: 14px;
-      color: #6B7FA3;
-      margin-bottom: 48px;
-    }
-
+    .doc-meta { font-size: 14px; color: var(--muted); margin-bottom: 48px; }
+    .doc-meta a { color: var(--blue-accent); }
     .doc-section { margin-bottom: 40px; }
     .doc-section h2 {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-head);
       font-size: 20px;
       font-weight: 600;
-      color: #060C18;
+      color: var(--ink);
       margin-bottom: 14px;
       padding-bottom: 10px;
-      border-bottom: 1px solid rgba(13,21,38,0.1);
+      border-bottom: 1px solid var(--border);
     }
-    .doc-section p { margin-bottom: 12px; color: #2B3A57; }
+    .doc-section p { margin-bottom: 12px; color: var(--ink-mid); }
     .doc-section p:last-child { margin-bottom: 0; }
-    .doc-section ul {
-      padding-left: 20px;
-      margin-bottom: 12px;
-      color: #2B3A57;
-    }
+    .doc-section ul { padding-left: 20px; margin-bottom: 12px; color: var(--ink-mid); }
     .doc-section ul li { margin-bottom: 6px; }
     .doc-section table {
       width: 100%;
@@ -106,36 +61,34 @@
     .doc-section table td {
       text-align: left;
       padding: 10px 14px;
-      border: 1px solid rgba(13,21,38,0.1);
-      color: #2B3A57;
+      border: 1px solid var(--border);
+      color: var(--ink-mid);
       vertical-align: top;
     }
     .doc-section table th {
       background: rgba(13,21,38,0.04);
       font-weight: 600;
-      color: #0D1526;
+      color: var(--ink);
       white-space: nowrap;
     }
-
-    .highlight-box {
+    .doc-highlight {
       background: #fff;
-      border-left: 3px solid #E31B2E;
-      border-radius: 0 8px 8px 0;
+      border-left: 3px solid var(--red);
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
       padding: 16px 20px;
       margin-bottom: 16px;
       font-size: 15px;
-      color: #2B3A57;
+      color: var(--ink-mid);
     }
-
-    .doc-footer {
+    .doc-highlight a { color: var(--blue-accent); }
+    .doc-footer-links {
       margin-top: 56px;
       padding-top: 24px;
-      border-top: 1px solid rgba(13,21,38,0.1);
+      border-top: 1px solid var(--border);
       font-size: 14px;
-      color: #6B7FA3;
+      color: var(--muted);
     }
-    .doc-footer a { color: #1A45E8; }
-
+    .doc-footer-links a { color: var(--blue-accent); }
     @media (max-width: 640px) {
       .doc-wrap { padding-block: 36px 60px; }
       .doc-section table { display: block; overflow-x: auto; }
@@ -144,168 +97,341 @@
 </head>
 <body>
 
-  <header class="page-header">
-    <div class="page-header__inner">
-      <a href="/" class="page-header__logo">Полюс <span>Сервис</span> 77</a>
-      <a href="/" class="page-header__back">На главную</a>
+  <!-- ═══════════════════════ HEADER ═══════════════════════════ -->
+  <header class="header is-scrolled" id="js-header">
+    <div class="container header__inner">
+
+      <a href="/" class="logo" aria-label="Полюс Сервис &ndash; на главную">
+        <span class="logo__mark" aria-hidden="true">
+          <img src="assets/images/logopolus.svg" class="logo__img" alt="">
+        </span>
+        <div class="logo__text">
+          <span class="logo__name">Полюс Сервис</span>
+        </div>
+      </a>
+
+      <nav class="nav" id="js-nav" aria-label="Основная навигация">
+        <ul class="nav__list" role="list">
+          <li><a href="/#about"    class="nav__link">О компании</a></li>
+          <li><a href="/#process"  class="nav__link">Как работаем</a></li>
+          <li><a href="/#services" class="nav__link">Услуги</a></li>
+          <li><a href="/#catalog"  class="nav__link">Каталог</a></li>
+          <li><a href="/#contact"  class="nav__link">Контакты</a></li>
+        </ul>
+      </nav>
+
+      <div class="header__cta">
+        <a href="tel:+79999999999" class="header__phone" aria-label="Позвонить">+7 999 999-99-99</a>
+        <div class="header__social" aria-label="Социальные сети">
+          <a href="https://t.me/polus_servis77" class="social-link social-link--tg" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+          <a href="https://vk.me/polus_servis77" class="social-link social-link--max" target="_blank" rel="noopener noreferrer" aria-label="MAX">
+            <svg viewBox="0 0 720 720" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M350.4,9.6C141.8,20.5,4.1,184.1,12.8,390.4c3.8,90.3,40.1,168,48.7,253.7,2.2,22.2-4.2,49.6,21.4,59.3,31.5,11.9,79.8-8.1,106.2-26.4,9-6.1,17.6-13.2,24.2-22,27.3,18.1,53.2,35.6,85.7,43.4,143.1,34.3,299.9-44.2,369.6-170.3C799.6,291.2,622.5-4.6,350.4,9.6h0ZM269.4,504c-11.3,8.8-22.2,20.8-34.7,27.7-18.1,9.7-23.7-.4-30.5-16.4-21.4-50.9-24-137.6-11.5-190.9,16.8-72.5,72.9-136.3,150-143.1,78-6.9,150.4,32.7,183.1,104.2,72.4,159.1-112.9,316.2-256.4,218.6h0Z"/></svg>
+          </a>
+          <a href="https://vk.com/polus_servis77" class="social-link social-link--vk" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.677-1.253.677-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.253-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.745-.576.745z"/></svg>
+          </a>
+        </div>
+        <a href="#" class="btn btn--primary btn--sm js-modal-open">Заявка</a>
+      </div>
+
+      <button class="burger" id="js-burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="js-nav">
+        <span></span><span></span><span></span>
+      </button>
+
     </div>
   </header>
 
-  <main class="doc-wrap">
+  <div class="doc-page">
+    <main class="doc-wrap">
 
-    <h1 class="doc-title">Политика конфиденциальности</h1>
-    <p class="doc-meta">Версия 1.0 &nbsp;·&nbsp; Вступает в силу с 1 января 2026 г.</p>
+      <h1 class="doc-title">Политика конфиденциальности</h1>
+      <p class="doc-meta">Версия 1.0 &nbsp;·&nbsp; Вступает в силу с 1 января 2026 г.</p>
 
-    <div class="doc-section">
-      <h2>1. Общие положения</h2>
-      <p>Настоящая Политика конфиденциальности (далее — «Политика») определяет порядок обработки и защиты персональных данных физических лиц, пользующихся сайтом <strong>polus-servis77.ru</strong> (далее — «Сайт»).</p>
-      <p>Оператором персональных данных является <strong>ООО «ПОЛЮС»</strong> (ИНН 5904381623, ОГРН 1205900008929), далее — «Оператор».</p>
-      <p>Обработка персональных данных осуществляется в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных» и иными нормативными правовыми актами Российской Федерации.</p>
-      <p>Используя Сайт и заполняя формы обратной связи, вы соглашаетесь с условиями настоящей Политики. Если вы не согласны с Политикой — пожалуйста, не используйте Сайт.</p>
-    </div>
+      <div class="doc-section">
+        <h2>1. Общие положения</h2>
+        <p>Настоящая Политика конфиденциальности (далее — «Политика») определяет порядок обработки и защиты персональных данных физических лиц, пользующихся сайтом <strong>polus-servis77.ru</strong> (далее — «Сайт»).</p>
+        <p>Оператором персональных данных является <strong>ООО «ПОЛЮС»</strong> (ИНН 5904381623, ОГРН 1205900008929), далее — «Оператор».</p>
+        <p>Обработка персональных данных осуществляется в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных» и иными нормативными правовыми актами Российской Федерации.</p>
+        <p>Используя Сайт и заполняя формы обратной связи, вы соглашаетесь с условиями настоящей Политики. Если вы не согласны с Политикой — пожалуйста, не используйте Сайт.</p>
+      </div>
 
-    <div class="doc-section">
-      <h2>2. Какие данные мы собираем</h2>
-      <p>Оператор может собирать следующие категории персональных данных:</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Данные</th>
-            <th>Способ получения</th>
-            <th>Обязательность</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Имя и фамилия</td>
-            <td>Форма обратной связи, заявка</td>
-            <td>Обязательно</td>
-          </tr>
-          <tr>
-            <td>Номер телефона</td>
-            <td>Форма обратной связи, заявка</td>
-            <td>Обязательно</td>
-          </tr>
-          <tr>
-            <td>Адрес электронной почты</td>
-            <td>Форма обратной связи</td>
-            <td>Необязательно</td>
-          </tr>
-          <tr>
-            <td>Содержание обращения</td>
-            <td>Форма обратной связи</td>
-            <td>Необязательно</td>
-          </tr>
-          <tr>
-            <td>IP-адрес, тип браузера, страницы просмотра</td>
-            <td>Автоматически (cookies, аналитика)</td>
-            <td>Автоматически</td>
-          </tr>
-        </tbody>
-      </table>
-      <p>Оператор не собирает специальные категории персональных данных: сведения о расовой и национальной принадлежности, политических взглядах, состоянии здоровья, интимной жизни и иные данные, предусмотренные ст. 10 ФЗ-152.</p>
-    </div>
+      <div class="doc-section">
+        <h2>2. Какие данные мы собираем</h2>
+        <p>Оператор может собирать следующие категории персональных данных:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Данные</th>
+              <th>Способ получения</th>
+              <th>Обязательность</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Имя и фамилия</td>
+              <td>Форма обратной связи, заявка</td>
+              <td>Обязательно</td>
+            </tr>
+            <tr>
+              <td>Номер телефона</td>
+              <td>Форма обратной связи, заявка</td>
+              <td>Обязательно</td>
+            </tr>
+            <tr>
+              <td>Адрес электронной почты</td>
+              <td>Форма обратной связи</td>
+              <td>Необязательно</td>
+            </tr>
+            <tr>
+              <td>Содержание обращения</td>
+              <td>Форма обратной связи</td>
+              <td>Необязательно</td>
+            </tr>
+            <tr>
+              <td>IP-адрес, тип браузера, страницы просмотра</td>
+              <td>Автоматически (cookies, аналитика)</td>
+              <td>Автоматически</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Оператор не собирает специальные категории персональных данных: сведения о расовой и национальной принадлежности, политических взглядах, состоянии здоровья, интимной жизни и иные данные, предусмотренные ст. 10 ФЗ-152.</p>
+      </div>
 
-    <div class="doc-section">
-      <h2>3. Цели обработки персональных данных</h2>
-      <p>Собранные персональные данные обрабатываются в следующих целях:</p>
-      <ul>
-        <li>Ответ на обращения и заявки пользователей (консультации, оформление договоров, расчёт стоимости услуг);</li>
-        <li>Исполнение заключённых договоров об оказании услуг;</li>
-        <li>Информирование о ходе исполнения заявки или договора;</li>
-        <li>Улучшение качества работы Сайта и сервисов на его основе;</li>
-        <li>Проведение статистического анализа посещаемости и поведения пользователей;</li>
-        <li>Соблюдение требований законодательства Российской Федерации.</li>
-      </ul>
-    </div>
+      <div class="doc-section">
+        <h2>3. Цели обработки персональных данных</h2>
+        <p>Собранные персональные данные обрабатываются в следующих целях:</p>
+        <ul>
+          <li>Ответ на обращения и заявки пользователей (консультации, оформление договоров, расчёт стоимости услуг);</li>
+          <li>Исполнение заключённых договоров об оказании услуг;</li>
+          <li>Информирование о ходе исполнения заявки или договора;</li>
+          <li>Улучшение качества работы Сайта и сервисов на его основе;</li>
+          <li>Проведение статистического анализа посещаемости и поведения пользователей;</li>
+          <li>Соблюдение требований законодательства Российской Федерации.</li>
+        </ul>
+      </div>
 
-    <div class="doc-section">
-      <h2>4. Правовые основания обработки</h2>
-      <p>Обработка персональных данных осуществляется на следующих правовых основаниях:</p>
-      <ul>
-        <li><strong>Согласие субъекта</strong> — при заполнении форм обратной связи и заявок (ст. 6 ч. 1 п. 1 ФЗ-152);</li>
-        <li><strong>Исполнение договора</strong> — при заключении и исполнении договора об оказании услуг (ст. 6 ч. 1 п. 5 ФЗ-152);</li>
-        <li><strong>Выполнение обязанности, предусмотренной законом</strong> — для соблюдения требований законодательства РФ (ст. 6 ч. 1 п. 2 ФЗ-152).</li>
-      </ul>
-    </div>
+      <div class="doc-section">
+        <h2>4. Правовые основания обработки</h2>
+        <p>Обработка персональных данных осуществляется на следующих правовых основаниях:</p>
+        <ul>
+          <li><strong>Согласие субъекта</strong> — при заполнении форм обратной связи и заявок (ст. 6 ч. 1 п. 1 ФЗ-152);</li>
+          <li><strong>Исполнение договора</strong> — при заключении и исполнении договора об оказании услуг (ст. 6 ч. 1 п. 5 ФЗ-152);</li>
+          <li><strong>Выполнение обязанности, предусмотренной законом</strong> — для соблюдения требований законодательства РФ (ст. 6 ч. 1 п. 2 ФЗ-152).</li>
+        </ul>
+      </div>
 
-    <div class="doc-section">
-      <h2>5. Порядок и условия обработки данных</h2>
-      <p>Оператор осуществляет обработку персональных данных следующими способами: сбор, запись, систематизация, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передача (предоставление, доступ), обезличивание, блокирование, удаление, уничтожение.</p>
-      <p>Обработка производится как с использованием средств автоматизации, так и без них.</p>
-      <p>Оператор хранит персональные данные <strong>не более 3 лет</strong> с момента последнего взаимодействия с субъектом данных, либо до момента отзыва согласия, либо до исполнения и прекращения обязательств по договору — в зависимости от того, что наступит раньше.</p>
-    </div>
+      <div class="doc-section">
+        <h2>5. Порядок и условия обработки данных</h2>
+        <p>Оператор осуществляет обработку персональных данных следующими способами: сбор, запись, систематизация, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передача (предоставление, доступ), обезличивание, блокирование, удаление, уничтожение.</p>
+        <p>Обработка производится как с использованием средств автоматизации, так и без них.</p>
+        <p>Оператор хранит персональные данные <strong>не более 3 лет</strong> с момента последнего взаимодействия с субъектом данных, либо до момента отзыва согласия, либо до исполнения и прекращения обязательств по договору — в зависимости от того, что наступит раньше.</p>
+      </div>
 
-    <div class="doc-section">
-      <h2>6. Передача данных третьим лицам</h2>
-      <p>Оператор не передаёт персональные данные третьим лицам без согласия субъекта, за исключением случаев, прямо предусмотренных законодательством РФ.</p>
-      <p>Для обеспечения работы Сайта и аналитики могут привлекаться следующие сервисы:</p>
-      <ul>
-        <li><strong>Яндекс.Метрика</strong> — анонимизированная статистика посещаемости (Яндекс ООО, РФ);</li>
-        <li><strong>Google Fonts</strong> — загрузка шрифтов (Google LLC, США). При этом браузер пользователя устанавливает соединение с серверами Google и передаёт IP-адрес.</li>
-      </ul>
-      <p>Указанные сервисы обрабатывают данные в соответствии с собственными политиками конфиденциальности.</p>
-    </div>
+      <div class="doc-section">
+        <h2>6. Передача данных третьим лицам</h2>
+        <p>Оператор не передаёт персональные данные третьим лицам без согласия субъекта, за исключением случаев, прямо предусмотренных законодательством РФ.</p>
+        <p>Для обеспечения работы Сайта и аналитики могут привлекаться следующие сервисы:</p>
+        <ul>
+          <li><strong>Яндекс.Метрика</strong> — анонимизированная статистика посещаемости (Яндекс ООО, РФ);</li>
+          <li><strong>Google Fonts</strong> — загрузка шрифтов (Google LLC, США). При этом браузер пользователя устанавливает соединение с серверами Google и передаёт IP-адрес.</li>
+        </ul>
+        <p>Указанные сервисы обрабатывают данные в соответствии с собственными политиками конфиденциальности.</p>
+      </div>
 
-    <div class="doc-section">
-      <h2>7. Защита персональных данных</h2>
-      <p>Оператор принимает необходимые и достаточные технические и организационные меры для защиты персональных данных от несанкционированного доступа, изменения, раскрытия или уничтожения.</p>
-      <ul>
-        <li>Передача данных между браузером и сервером осуществляется по протоколу HTTPS;</li>
-        <li>Доступ к персональным данным имеют только уполномоченные сотрудники;</li>
-        <li>Сотрудники ознакомлены с требованиями по обращению с персональными данными.</li>
-      </ul>
-    </div>
+      <div class="doc-section">
+        <h2>7. Защита персональных данных</h2>
+        <p>Оператор принимает необходимые и достаточные технические и организационные меры для защиты персональных данных от несанкционированного доступа, изменения, раскрытия или уничтожения.</p>
+        <ul>
+          <li>Передача данных между браузером и сервером осуществляется по протоколу HTTPS;</li>
+          <li>Доступ к персональным данным имеют только уполномоченные сотрудники;</li>
+          <li>Сотрудники ознакомлены с требованиями по обращению с персональными данными.</li>
+        </ul>
+      </div>
 
-    <div class="doc-section">
-      <h2>8. Файлы cookies</h2>
-      <p>Сайт может использовать файлы cookies — небольшие фрагменты данных, сохраняемые браузером на устройстве пользователя. Cookies используются для:</p>
-      <ul>
-        <li>Обеспечения корректной работы Сайта;</li>
-        <li>Сбора анонимной статистики посещаемости.</li>
-      </ul>
-      <p>Вы можете отключить cookies в настройках браузера. Обратите внимание, что это может повлиять на функциональность Сайта.</p>
-    </div>
+      <div class="doc-section">
+        <h2>8. Файлы cookies</h2>
+        <p>Сайт может использовать файлы cookies — небольшие фрагменты данных, сохраняемые браузером на устройстве пользователя. Cookies используются для:</p>
+        <ul>
+          <li>Обеспечения корректной работы Сайта;</li>
+          <li>Сбора анонимной статистики посещаемости.</li>
+        </ul>
+        <p>Вы можете отключить cookies в настройках браузера. Обратите внимание, что это может повлиять на функциональность Сайта.</p>
+      </div>
 
-    <div class="doc-section">
-      <h2>9. Права субъекта персональных данных</h2>
-      <p>В соответствии с ФЗ-152 вы имеете право:</p>
-      <ul>
-        <li>Получить информацию об обработке ваших персональных данных;</li>
-        <li>Потребовать уточнения, блокирования или уничтожения недостоверных или незаконно обрабатываемых данных;</li>
-        <li>Отозвать согласие на обработку персональных данных;</li>
-        <li>Обратиться с жалобой в Роскомнадзор (rkn.gov.ru);</li>
-        <li>Защищать свои права в судебном порядке.</li>
-      </ul>
-      <div class="highlight-box">
-        Для реализации ваших прав направьте письменный запрос по адресу электронной почты: <a href="mailto:help@polus-servis77.ru">help@polus-servis77.ru</a>. Мы ответим в течение 30 дней с момента получения запроса.
+      <div class="doc-section">
+        <h2>9. Права субъекта персональных данных</h2>
+        <p>В соответствии с ФЗ-152 вы имеете право:</p>
+        <ul>
+          <li>Получить информацию об обработке ваших персональных данных;</li>
+          <li>Потребовать уточнения, блокирования или уничтожения недостоверных или незаконно обрабатываемых данных;</li>
+          <li>Отозвать согласие на обработку персональных данных;</li>
+          <li>Обратиться с жалобой в Роскомнадзор (rkn.gov.ru);</li>
+          <li>Защищать свои права в судебном порядке.</li>
+        </ul>
+        <div class="doc-highlight">
+          Для реализации ваших прав направьте письменный запрос по адресу: <a href="mailto:help@polus-servis77.ru">help@polus-servis77.ru</a>. Мы ответим в течение 30 дней с момента получения запроса.
+        </div>
+      </div>
+
+      <div class="doc-section">
+        <h2>10. Изменение политики</h2>
+        <p>Оператор оставляет за собой право вносить изменения в настоящую Политику. Актуальная версия всегда доступна по адресу: <a href="/privacy-policy.html" style="color:var(--blue-accent)">polus-servis77.ru/privacy-policy.html</a></p>
+        <p>Продолжение использования Сайта после внесения изменений означает ваше согласие с обновлённой Политикой.</p>
+      </div>
+
+      <div class="doc-section">
+        <h2>11. Контактные данные оператора</h2>
+        <p><strong>ООО «ПОЛЮС»</strong></p>
+        <p>ИНН: 5904381623 &nbsp;·&nbsp; ОГРН: 1205900008929</p>
+        <p>Телефон: <a href="tel:+79999999999" style="color:var(--blue-accent)">+7 999 999-99-99</a></p>
+        <p>Электронная почта: <a href="mailto:help@polus-servis77.ru" style="color:var(--blue-accent)">help@polus-servis77.ru</a></p>
+      </div>
+
+      <div class="doc-footer-links">
+        <p>Смотрите также: <a href="/consent.html">Согласие на обработку персональных данных</a> &nbsp;·&nbsp; <a href="/">На главную страницу</a></p>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+  <footer class="footer" aria-label="Подвал сайта">
+    <div class="container">
+      <div class="footer__grid">
+
+        <div class="footer__brand">
+          <a href="/" class="logo" aria-label="Полюс Сервис &ndash; на главную">
+            <span class="logo__mark" aria-hidden="true">
+              <img src="assets/images/logopolus.svg" class="logo__img" alt="">
+            </span>
+            <div class="logo__text">
+              <span class="logo__name">Полюс Сервис</span>
+            </div>
+          </a>
+          <p>Поставка, монтаж и техническое обслуживание теплового оборудования</p>
+          <div class="social-links footer__social" aria-label="Социальные сети">
+            <a href="https://t.me/polus_servis77" class="social-link social-link--tg" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            </a>
+            <a href="https://vk.me/polus_servis77" class="social-link social-link--max" target="_blank" rel="noopener noreferrer" aria-label="MAX">
+              <svg viewBox="0 0 720 720" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M350.4,9.6C141.8,20.5,4.1,184.1,12.8,390.4c3.8,90.3,40.1,168,48.7,253.7,2.2,22.2-4.2,49.6,21.4,59.3,31.5,11.9,79.8-8.1,106.2-26.4,9-6.1,17.6-13.2,24.2-22,27.3,18.1,53.2,35.6,85.7,43.4,143.1,34.3,299.9-44.2,369.6-170.3C799.6,291.2,622.5-4.6,350.4,9.6h0ZM269.4,504c-11.3,8.8-22.2,20.8-34.7,27.7-18.1,9.7-23.7-.4-30.5-16.4-21.4-50.9-24-137.6-11.5-190.9,16.8-72.5,72.9-136.3,150-143.1,78-6.9,150.4,32.7,183.1,104.2,72.4,159.1-112.9,316.2-256.4,218.6h0Z"/></svg>
+            </a>
+            <a href="https://vk.com/polus_servis77" class="social-link social-link--vk" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.677-1.253.677-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.253-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.745-.576.745z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <nav class="footer__nav" aria-label="Навигация в подвале">
+          <h3 class="footer__nav-h">Навигация</h3>
+          <ul role="list">
+            <li><a href="/#about">О компании</a></li>
+            <li><a href="/#process">Как работаем</a></li>
+            <li><a href="/#services">Услуги</a></li>
+            <li><a href="/#reviews">Отзывы</a></li>
+            <li><a href="/#faq">FAQ</a></li>
+            <li><a href="/#contact">Контакты</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer__nav" aria-label="Услуги в подвале">
+          <h3 class="footer__nav-h">Услуги</h3>
+          <ul role="list">
+            <li><a href="/#services">Поставка оборудования</a></li>
+            <li><a href="/#services">Монтаж и изготовление ИТП и котельных</a></li>
+            <li><a href="/#services">Техническое обслуживание</a></li>
+            <li><a href="/#services">Промывка пластинчатых теплообменников</a></li>
+            <li><a href="/#services">Запасные части</a></li>
+            <li><a href="/#services">Химические реагенты</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__contacts">
+          <h3 class="footer__nav-h">Контакты</h3>
+          <a href="tel:+79999999999" class="footer__phone">+7 999 999-99-99</a>
+          <a href="mailto:help@polus-servis77.ru" class="footer__mail">help@polus-servis77.ru</a>
+          <div class="social-links footer__social" aria-label="Социальные сети">
+            <a href="https://t.me/polus_servis77" class="social-link social-link--tg" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            </a>
+            <a href="https://vk.me/polus_servis77" class="social-link social-link--max" target="_blank" rel="noopener noreferrer" aria-label="MAX">
+              <svg viewBox="0 0 720 720" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M350.4,9.6C141.8,20.5,4.1,184.1,12.8,390.4c3.8,90.3,40.1,168,48.7,253.7,2.2,22.2-4.2,49.6,21.4,59.3,31.5,11.9,79.8-8.1,106.2-26.4,9-6.1,17.6-13.2,24.2-22,27.3,18.1,53.2,35.6,85.7,43.4,143.1,34.3,299.9-44.2,369.6-170.3C799.6,291.2,622.5-4.6,350.4,9.6h0ZM269.4,504c-11.3,8.8-22.2,20.8-34.7,27.7-18.1,9.7-23.7-.4-30.5-16.4-21.4-50.9-24-137.6-11.5-190.9,16.8-72.5,72.9-136.3,150-143.1,78-6.9,150.4,32.7,183.1,104.2,72.4,159.1-112.9,316.2-256.4,218.6h0Z"/></svg>
+            </a>
+            <a href="https://vk.com/polus_servis77" class="social-link social-link--vk" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.677-1.253.677-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.253-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.745-.576.745z"/></svg>
+            </a>
+          </div>
+          <div class="footer__docs">
+            <a href="/privacy-policy.html">Политика конфиденциальности</a>
+            <a href="/consent.html">Согласие на обработку ПД</a>
+            <a href="/sitemap.xml">Карта сайта</a>
+          </div>
+        </div>
+
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2026 ООО «ПОЛЮС». Все права защищены.</span>
+        <span>ИНН: 5904381623 &nbsp;&middot;&nbsp; ОГРН: 1205900008929</span>
       </div>
     </div>
+  </footer>
 
-    <div class="doc-section">
-      <h2>10. Изменение политики</h2>
-      <p>Оператор оставляет за собой право вносить изменения в настоящую Политику. Актуальная версия всегда доступна по адресу: <a href="/privacy-policy.html">polus-servis77.ru/privacy-policy.html</a></p>
-      <p>Продолжение использования Сайта после внесения изменений означает ваше согласие с обновлённой Политикой.</p>
-    </div>
-
-    <div class="doc-section">
-      <h2>11. Контактные данные оператора</h2>
-      <p><strong>ООО «ПОЛЮС»</strong></p>
-      <p>ИНН: 5904381623 &nbsp;·&nbsp; ОГРН: 1205900008929</p>
-      <p>Телефон: <a href="tel:+79999999999">+7 999 999-99-99</a></p>
-      <p>Электронная почта: <a href="mailto:help@polus-servis77.ru">help@polus-servis77.ru</a></p>
-    </div>
-
-    <div class="doc-footer">
-      <p>
-        Смотрите также:
-        <a href="/consent.html">Согласие на обработку персональных данных</a>
-        &nbsp;·&nbsp;
-        <a href="/">На главную страницу</a>
+  <!-- MODAL: ЗАЯВКА -->
+  <div class="modal" id="js-modal" role="dialog" aria-modal="true" aria-labelledby="js-modal-label" hidden>
+    <div class="modal__backdrop" id="js-modal-backdrop" aria-hidden="true"></div>
+    <div class="modal__box">
+      <div class="modal__head">
+        <div>
+          <div class="modal__kicker">Бесплатная консультация</div>
+          <h2 class="modal__title" id="js-modal-label">Оставить заявку</h2>
+        </div>
+        <button class="modal__close" id="js-modal-close" aria-label="Закрыть диалог">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <form class="modal__form" id="js-modal-form" novalidate>
+        <div class="field">
+          <input type="text" id="mf-name" name="name" class="field__input" placeholder=" " required minlength="2" maxlength="100" autocomplete="name">
+          <label class="field__label" for="mf-name">Ваше имя <span aria-hidden="true">*</span></label>
+        </div>
+        <div class="field">
+          <input type="tel" id="mf-phone" name="phone" class="field__input" placeholder=" " required autocomplete="tel">
+          <label class="field__label" for="mf-phone">Телефон <span aria-hidden="true">*</span></label>
+        </div>
+        <div class="field">
+          <textarea id="mf-msg" name="message" class="field__input field__input--ta" placeholder=" " rows="3" maxlength="2000"></textarea>
+          <label class="field__label" for="mf-msg">Опишите задачу</label>
+        </div>
+        <div style="display:none" aria-hidden="true">
+          <input type="text" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <button class="btn btn--primary btn--block" type="submit" id="js-modal-submit">
+          <span class="btn__spinner" aria-hidden="true"></span>
+          <span class="btn__label">Отправить заявку</span>
+        </button>
+        <p class="modal__policy">
+          Нажимая кнопку, вы соглашаетесь с
+          <a href="/privacy-policy.html" class="modal__policy-link" target="_blank" rel="noopener">политикой конфиденциальности</a>
+          и даёте <a href="/consent.html" class="modal__policy-link" target="_blank" rel="noopener">согласие на обработку персональных данных</a>
+        </p>
+      </form>
+      <div class="modal__success" id="js-modal-success" hidden aria-live="polite">
+        <div class="modal__success-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p class="modal__success-title">Заявка принята</p>
+        <p class="modal__success-text">Перезвоним в течение 15 минут в рабочее время</p>
+      </div>
+      <p class="modal__error" id="js-modal-error" hidden role="alert">
+        Ошибка отправки &ndash; попробуйте ещё раз или позвоните нам напрямую
       </p>
     </div>
+  </div>
 
-  </main>
-
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
