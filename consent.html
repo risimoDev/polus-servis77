@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, follow">
+  <title>Согласие на обработку персональных данных — Полюс Сервис</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      color: #0D1526;
+      background: #F5F7FC;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: #1A45E8; text-decoration: underline; }
+    a:hover { color: #E31B2E; }
+
+    .page-header {
+      background: #060C18;
+      padding: 20px 0;
+      border-bottom: 2px solid #E31B2E;
+    }
+    .page-header__inner {
+      width: min(1200px, 100% - 48px);
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .page-header__logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .page-header__logo span { color: #E31B2E; }
+    .page-header__back {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .page-header__back:hover { color: #fff; }
+    .page-header__back::before { content: '←'; }
+
+    .doc-wrap {
+      width: min(860px, 100% - 48px);
+      margin-inline: auto;
+      padding-block: 56px 80px;
+    }
+
+    .doc-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 700;
+      color: #060C18;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .doc-meta {
+      font-size: 14px;
+      color: #6B7FA3;
+      margin-bottom: 48px;
+    }
+
+    .consent-block {
+      background: #fff;
+      border: 1px solid rgba(13,21,38,0.1);
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-bottom: 32px;
+      font-size: 15.5px;
+      color: #2B3A57;
+    }
+    .consent-block p { margin-bottom: 14px; }
+    .consent-block p:last-child { margin-bottom: 0; }
+
+    .doc-section { margin-bottom: 40px; }
+    .doc-section h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: #060C18;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(13,21,38,0.1);
+    }
+    .doc-section p { margin-bottom: 12px; color: #2B3A57; }
+    .doc-section p:last-child { margin-bottom: 0; }
+    .doc-section ul {
+      padding-left: 20px;
+      margin-bottom: 12px;
+      color: #2B3A57;
+    }
+    .doc-section ul li { margin-bottom: 6px; }
+
+    .highlight-box {
+      background: #fff;
+      border-left: 3px solid #E31B2E;
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      font-size: 15px;
+      color: #2B3A57;
+    }
+
+    .data-list {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .data-list__item {
+      display: flex;
+      gap: 10px;
+      padding: 12px 16px;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid rgba(13,21,38,0.08);
+      font-size: 15px;
+      color: #2B3A57;
+      align-items: flex-start;
+    }
+    .data-list__item::before {
+      content: '—';
+      color: #E31B2E;
+      font-weight: 600;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .doc-footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(13,21,38,0.1);
+      font-size: 14px;
+      color: #6B7FA3;
+    }
+    .doc-footer a { color: #1A45E8; }
+
+    @media (max-width: 640px) {
+      .doc-wrap { padding-block: 36px 60px; }
+      .consent-block { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <div class="page-header__inner">
+      <a href="/" class="page-header__logo">Полюс <span>Сервис</span> 77</a>
+      <a href="/" class="page-header__back">На главную</a>
+    </div>
+  </header>
+
+  <main class="doc-wrap">
+
+    <h1 class="doc-title">Согласие на обработку персональных данных</h1>
+    <p class="doc-meta">Настоящий документ является неотъемлемой частью <a href="/privacy-policy.html">Политики конфиденциальности</a></p>
+
+    <div class="consent-block">
+      <p>
+        Настоящим я, субъект персональных данных, оставляя свои данные на сайте
+        <strong>polus-servis77.ru</strong>, свободно, своей волей и в своём интересе,
+        выражаю <strong>безотзывное согласие</strong> на обработку моих персональных данных
+        оператором — <strong>ООО «ПОЛЮС»</strong> (ИНН 5904381623, ОГРН 1205900008929),
+        расположенным по адресу: Российская Федерация.
+      </p>
+      <p>
+        Согласие даётся на условиях и в объёме, предусмотренных настоящим документом,
+        в целях, указанных ниже, на срок до достижения целей обработки или до отзыва согласия.
+      </p>
+    </div>
+
+    <div class="doc-section">
+      <h2>1. Перечень персональных данных</h2>
+      <p>Я даю согласие на обработку следующих персональных данных:</p>
+      <div class="data-list">
+        <div class="data-list__item">Фамилия, имя, отчество (полностью или частично)</div>
+        <div class="data-list__item">Номер мобильного и/или стационарного телефона</div>
+        <div class="data-list__item">Адрес электронной почты</div>
+        <div class="data-list__item">Содержание обращения (описание проблемы, вопроса, пожелания)</div>
+        <div class="data-list__item">Технические данные: IP-адрес, тип браузера и устройства, страницы Сайта, время посещения (при использовании сервисов аналитики)</div>
+      </div>
+    </div>
+
+    <div class="doc-section">
+      <h2>2. Цели обработки</h2>
+      <p>Согласие даётся для достижения следующих целей:</p>
+      <ul>
+        <li>Обработка входящих обращений и заявок; предоставление консультаций;</li>
+        <li>Подготовка и заключение договоров об оказании услуг, расчёт стоимости работ;</li>
+        <li>Информирование о статусе заявки, изменениях в условиях договора;</li>
+        <li>Улучшение качества работы Сайта и клиентского сервиса;</li>
+        <li>Ведение внутренней статистики и отчётности;</li>
+        <li>Исполнение обязательств, предусмотренных законодательством РФ.</li>
+      </ul>
+    </div>
+
+    <div class="doc-section">
+      <h2>3. Действия с персональными данными</h2>
+      <p>Я даю согласие на совершение с моими персональными данными следующих действий:</p>
+      <ul>
+        <li>Сбор, запись, систематизация, накопление;</li>
+        <li>Хранение, уточнение (обновление, изменение);</li>
+        <li>Извлечение, использование;</li>
+        <li>Передача уполномоченным сотрудникам оператора для выполнения указанных целей;</li>
+        <li>Обезличивание, блокирование, удаление, уничтожение.</li>
+      </ul>
+      <p>Обработка производится как с использованием средств автоматизации, так и без их использования.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>4. Передача третьим лицам</h2>
+      <p>Я выражаю согласие на передачу моих персональных данных третьим лицам исключительно в целях, указанных выше, при условии соблюдения ими требований ФЗ-152 «О персональных данных».</p>
+      <p>Передача данных третьим лицам в иных целях, а также продажа данных не допускается.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>5. Срок действия согласия</h2>
+      <p>Настоящее согласие действует с момента его предоставления до момента достижения целей обработки или в течение <strong>3 (трёх) лет</strong> с момента последнего взаимодействия с Оператором — в зависимости от того, что наступит раньше.</p>
+      <p>После истечения срока персональные данные подлежат уничтожению, если иное не предусмотрено законодательством РФ.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>6. Отзыв согласия</h2>
+      <div class="highlight-box">
+        Я вправе в любой момент отозвать настоящее согласие, направив письменное заявление на
+        электронный адрес <a href="mailto:help@polus-servis77.ru">help@polus-servis77.ru</a>
+        или на почтовый адрес Оператора.
+      </div>
+      <p>В случае отзыва согласия Оператор обязан прекратить обработку и уничтожить персональные данные в течение <strong>30 дней</strong> с момента получения отзыва, если иное не предусмотрено законодательством или действующим договором.</p>
+      <p>Отзыв согласия не затрагивает законность обработки, осуществлённой до его отзыва.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>7. Последствия непредоставления данных</h2>
+      <p>Предоставление персональных данных является добровольным. Однако непредоставление обязательных данных (имя, телефон) делает невозможным обработку обращения или заключение договора об оказании услуг.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>8. Реквизиты оператора</h2>
+      <p><strong>ООО «ПОЛЮС»</strong></p>
+      <p>ИНН: 5904381623 &nbsp;·&nbsp; ОГРН: 1205900008929</p>
+      <p>Телефон: <a href="tel:+79999999999">+7 999 999-99-99</a></p>
+      <p>Электронная почта: <a href="mailto:help@polus-servis77.ru">help@polus-servis77.ru</a></p>
+    </div>
+
+    <div class="doc-footer">
+      <p>
+        Смотрите также:
+        <a href="/privacy-policy.html">Политика конфиденциальности</a>
+        &nbsp;·&nbsp;
+        <a href="/">На главную страницу</a>
+      </p>
+    </div>
+
+  </main>
+
+</body>
+</html>

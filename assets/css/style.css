@@ -72,6 +72,8 @@ body {
   background: var(--white);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
 }
 
 img, svg { display: block; max-width: 100%; }
@@ -267,6 +269,7 @@ blockquote { quotes: none; }
   width: 64px;
   height: 64px;
   pointer-events: none;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -423,12 +426,14 @@ blockquote { quotes: none; }
     rgba(255,255,255,0.018) 50px,
     rgba(255,255,255,0.018) 51px
   );
+  will-change: transform;
   animation: techLinesDrift 90s linear infinite;
 }
 
 .hero__scanlines::after {
   content: '';
   position: absolute;
+  top: 0;
   left: -10%;
   right: -10%;
   height: 140px;
@@ -441,6 +446,7 @@ blockquote { quotes: none; }
     transparent
   );
   filter: blur(4px);
+  will-change: transform, opacity;
   animation: scanSweep 16s ease-in-out infinite;
   opacity: 0;
 }
@@ -483,12 +489,14 @@ blockquote { quotes: none; }
   width: 200px; height: 200px;
   top: 20%; right: 8%;
   transform: rotate(30deg);
+  will-change: transform;
   animation: shapeRotate 20s linear infinite;
 }
 .hero__shape--2 {
   width: 120px; height: 120px;
   bottom: 15%; right: 25%;
   transform: rotate(-15deg);
+  will-change: transform;
   animation: shapeRotate 15s linear infinite reverse;
 }
 
@@ -519,6 +527,7 @@ blockquote { quotes: none; }
   border-radius: 50%;
   background: var(--red);
   box-shadow: 0 0 0 0 var(--red-glow);
+  will-change: box-shadow;
   animation: pulse 2s infinite;
 }
 
@@ -676,6 +685,7 @@ blockquote { quotes: none; }
 }
 .about__badge-float--1 {
   bottom: -16px; right: -16px;
+  will-change: transform;
   animation: floatBadge 4s ease-in-out infinite;
 }
 .about__badge-float--2 {
@@ -684,6 +694,7 @@ blockquote { quotes: none; }
   align-items: center;
   padding: 16px 24px;
   gap: 4px;
+  will-change: transform;
   animation: floatBadge 4s ease-in-out infinite 2s;
 }
 .about__badge-float--2 strong {
@@ -899,6 +910,7 @@ blockquote { quotes: none; }
   letter-spacing: -0.04em;
   color: rgba(255,255,255,0.06);
   transition: color var(--dur-slow);
+  -webkit-user-select: none;
   user-select: none;
 }
 .srv-card:hover .srv-card__num { color: rgba(255,255,255,0.10); }
@@ -988,6 +1000,7 @@ blockquote { quotes: none; }
 .reviews__track {
   display: flex;
   transition: transform 0.5s var(--ease);
+  touch-action: pan-y;
 }
 
 .rev-card {
@@ -1637,10 +1650,10 @@ blockquote { quotes: none; }
 }
 
 @keyframes scanSweep {
-  0%   { top: -140px; opacity: 0; }
+  0%   { transform: translateY(-140px); opacity: 0; }
   8%   { opacity: 1; }
   92%  { opacity: 0.9; }
-  100% { top: 100%; opacity: 0; }
+  100% { transform: translateY(120vh); opacity: 0; }
 }
 
 /* ── MODAL ────────────────────────────────────────────────── */
@@ -1946,7 +1959,7 @@ blockquote { quotes: none; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.92);
+  background: #fff;
   border-radius: 10px;
   padding: 10px 22px;
   margin-inline: 12px;
@@ -1978,6 +1991,7 @@ blockquote { quotes: none; }
 .brands__track {
   display: flex;
   width: max-content;
+  will-change: transform;
   animation: brandScroll 30s linear infinite;
 }
 
@@ -2335,6 +2349,7 @@ blockquote { quotes: none; }
   line-height: 1;
   letter-spacing: -0.04em;
   color: rgba(13,21,38,0.04);
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -2459,12 +2474,7 @@ blockquote { quotes: none; }
           drop-shadow(0 0 40px rgba(46, 77, 154, 0.10));
 }
 
-/* gear half rotation handled by SVG animateTransform inside each <g> */
-
-@keyframes gearSpin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
+/* gear half rotation is handled by SVG animateTransform inside each <g> */
 
 /* Three-dot progress track */
 .loader__track {

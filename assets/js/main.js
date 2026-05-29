@@ -44,9 +44,13 @@ const raf = requestAnimationFrame;
   const bar = $('#js-scroll-progress');
   if (!bar) return;
 
+  let scrollRaf = 0;
   on(window, 'scroll', () => {
-    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-    bar.style.width = Math.min(pct, 100) + '%';
+    cancelAnimationFrame(scrollRaf);
+    scrollRaf = raf(() => {
+      const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+      bar.style.width = Math.min(pct, 100) + '%';
+    });
   }, { passive: true });
 })();
 
@@ -73,7 +77,11 @@ const raf = requestAnimationFrame;
     });
   }
 
-  on(window, 'scroll', update, { passive: true });
+  let headerRaf = 0;
+  on(window, 'scroll', () => {
+    cancelAnimationFrame(headerRaf);
+    headerRaf = raf(update);
+  }, { passive: true });
   update();
 })();
 
