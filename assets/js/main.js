@@ -1,9 +1,36 @@
 /**
  * Полюс Сервис 77 — main.js
- * Modules: cursor · scroll-progress · header · nav · reveals · counters · reviews · faq · form · magnetic · phone-mask
+ * Modules: loader · cursor · scroll-progress · header · nav · reveals · counters · reviews · faq · form · magnetic · phone-mask
  */
 
 'use strict';
+
+/* ── PAGE LOADER ────────────────────────────────────────────── */
+(function initLoader() {
+  var loader = document.getElementById('page-loader');
+  if (!loader) return;
+
+  function hide() {
+    loader.classList.add('is-hidden');
+    setTimeout(function () { loader.remove(); }, 600);
+  }
+
+  /* Minimum display time so the animation is always visible */
+  var MIN_MS = 900;
+  var start  = Date.now();
+
+  function scheduleHide() {
+    var elapsed = Date.now() - start;
+    var delay   = Math.max(0, MIN_MS - elapsed);
+    setTimeout(hide, delay);
+  }
+
+  if (document.readyState === 'complete') {
+    scheduleHide();
+  } else {
+    window.addEventListener('load', scheduleHide, { once: true });
+  }
+})();
 
 /* ── UTILS ──────────────────────────────────────────────────── */
 const $ = (s, c = document) => c.querySelector(s);

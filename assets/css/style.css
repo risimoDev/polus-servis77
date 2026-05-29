@@ -541,6 +541,13 @@ blockquote { quotes: none; }
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+.hero__title-row--note {
+  font-size: 0.36em;
+  color: rgba(255,255,255,0.55);
+  -webkit-text-fill-color: rgba(255,255,255,0.55);
+  letter-spacing: 0.08em;
+  font-weight: 400;
+}
 
 .hero__sub {
   font-size: clamp(16px, 1.8vw, 19px);
@@ -628,6 +635,12 @@ blockquote { quotes: none; }
   background: var(--blue-dark);
   aspect-ratio: 4/3;
   position: relative;
+}
+.about__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .about__img-stub {
   position: absolute;
@@ -942,6 +955,27 @@ blockquote { quotes: none; }
 .srv-card:hover .srv-card__cta { color: var(--white); }
 .srv-card__cta:hover { gap: 14px; }
 .srv-card__cta svg { flex-shrink: 0; }
+
+/* Coming-soon card */
+.srv-card--soon { opacity: 0.72; pointer-events: none; }
+.srv-card--soon:hover { opacity: 0.72; }
+@media (min-width: 1025px) {
+  .srv-card--soon { grid-column: 2 / 3; }
+}
+.srv-card__badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  background: var(--blue-accent);
+  color: var(--white);
+  font-size: 11px;
+  font-family: var(--font-head);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
 
 /* ── REVIEWS ─────────────────────────────────────────────────── */
 .reviews { padding-block: var(--section-py); }
@@ -2391,4 +2425,64 @@ blockquote { quotes: none; }
   .cat-card { padding: 28px 24px 24px; }
   .cat-card__img { margin: -28px -24px 0; height: 180px; }
   .cat-card__title { font-size: 20px; }
+}
+
+/* ══════════════════════════ PAGE LOADER ══════════════════════════ */
+#page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--blue-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.55s ease, visibility 0.55s ease;
+}
+#page-loader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+}
+
+.loader__svg {
+  width: 180px;
+  height: 220px;
+  overflow: visible;
+  filter: drop-shadow(0 0 20px rgba(227, 30, 36, 0.15))
+          drop-shadow(0 0 40px rgba(46, 77, 154, 0.10));
+}
+
+/* gear half rotation handled by SVG animateTransform inside each <g> */
+
+@keyframes gearSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Three-dot progress track */
+.loader__track {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.loader__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  animation: loaderDot 1.4s ease-in-out infinite;
+}
+.loader__dot:nth-child(1) { background: var(--red);          animation-delay: 0s; }
+.loader__dot:nth-child(2) { background: rgba(255,255,255,0.35); animation-delay: 0.22s; }
+.loader__dot:nth-child(3) { background: var(--blue-accent);  animation-delay: 0.44s; }
+
+@keyframes loaderDot {
+  0%, 80%, 100% { transform: scale(0.65); opacity: 0.35; }
+  40%            { transform: scale(1.2);  opacity: 1; }
 }
