@@ -54,31 +54,21 @@ if [[ -n "$RESOLVED_IP" && "$RESOLVED_IP" != "$SERVER_IP" ]]; then
   [[ "$confirm" =~ ^[Yy]$ ]] || exit 1
 fi
 
-# ── 4. Получение сертификата ───────────────────────────────────────────────
+# ── 4. Получение сертификата (standalone — самый надёжный) ──────────────────
 log "Запрос сертификата Let's Encrypt для $DOMAIN и $WWW_DOMAIN ..."
+log "Nginx будет остановлен на ~10 секунд для ACME-валидации..."
 
-# Пробуем webroot способ (если nginx уже отдаёт статику)
-if [[ -d "$WEBROOT" ]]; then
-  certbot certonly \
-    --non-interactive \
-    --agree-tos \
-    --email "$EMAIL" \
-    --webroot \
-    --webroot-path "$WEBROOT" \
-    -d "$DOMAIN" -d "$WWW_DOMAIN" \
-    || error "Certbot (webroot) не смог получить сертификат"
-else
-  # Используем standalone (nginx должен быть остановлен на 80 порту)
-  systemctl stop nginx || true
-  certbot certonly \
-    --non-interactive \
-    --agree-tos \
-    --email "$EMAIL" \
-    --standalone \
-    -d "$DOMAIN" -d "$WWW_DOMAIN" \
-    || error "Certbot (standalone) не смог получить сертификат"
-  systemctl start nginx
-fi
+systemctl stop nginx || true
+
+certbot certonly \
+  --non-interactive \
+  --agree-tos \
+  --email "$EMAIL" \
+  --standalone \
+  -d "$DOMAIN" -d "$WWW_DOMAIN" \
+  || error "Certbot (standalone) не смог получить сертификат"
+
+systemctl start nginx || warn "Nginx не запустился — проверьте вручную"
 
 # ── 5. Проверка что сертификаты создались ──────────────────────────────────
 CERT_PATH="/etc/letsencrypt/live/$DOMAIN/fullchain.pem"
