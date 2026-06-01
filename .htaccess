@@ -9,9 +9,9 @@ RewriteRule ^storage/(?!uploads/) - [F,L]
 RewriteRule ^\.env       - [F,L]
 RewriteRule ^composer    - [F,L]
 
-# Force HTTPS — uncomment on production
-# RewriteCond %{HTTPS} off
-# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # Route all /api/* requests to api.php
 RewriteCond %{REQUEST_FILENAME} !-f

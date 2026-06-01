@@ -23,6 +23,10 @@ Thumbs.db
 # Docker volumes (local data)
 postgres_data/
 
+# SSL certificates (keep directory with .gitkeep)
+nginx/ssl/*.pem
+nginx/ssl/*.key
+
 # PHP legacy (kept for reference but not installed)
 vendor/
 

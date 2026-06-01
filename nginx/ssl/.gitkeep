@@ -1,0 +1,4 @@
+# Эта директория для SSL-сертификатов при Docker-развёртывании.
+# Файлы *.pem НЕ коммитятся в git (см. .gitignore).
+# Положите сюда fullchain.pem и privkey.pem при Docker-деплое,
+# или используйте scripts/setup-ssl.sh для нативного nginx.
