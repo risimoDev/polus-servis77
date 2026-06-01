@@ -27,6 +27,8 @@ postgres_data/
 nginx/ssl/*.pem
 nginx/ssl/*.key
 
+
+
 # PHP legacy (kept for reference but not installed)
 vendor/
 

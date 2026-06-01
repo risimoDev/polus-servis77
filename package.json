@@ -13,7 +13,8 @@
     "db:push":      "prisma db push",
     "db:studio":    "prisma studio",
     "db:seed":      "tsx prisma/seed.ts",
-    "typecheck":    "tsc --noEmit"
+    "typecheck":    "tsc --noEmit",
+    "favicon":      "node scripts/generate-favicon.js"
   },
   "dependencies": {
     "@fastify/cors":        "^9.0.1",
@@ -33,6 +34,8 @@
     "@types/node":          "^22.0.0",
     "@types/nodemailer":    "^6.4.17",
     "prisma":               "^5.22.0",
+    "sharp":                "^0.33.5",
+    "to-ico":               "^1.0.1",
     "tsx":                  "^4.19.2",
     "typescript":           "^5.6.3"
   }
