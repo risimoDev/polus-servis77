@@ -38,6 +38,27 @@ const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
 const raf = requestAnimationFrame;
 
+/* Отправка заявки на Node-бэкенд (/api/v1/contact). Бросает исключение при ошибке. */
+async function postLead(form) {
+  const fd = new FormData(form);
+  const payload = {
+    name:    (fd.get('name')    || '').toString().trim(),
+    phone:   (fd.get('phone')   || '').toString().trim(),
+    message: (fd.get('message') || '').toString().trim(),
+    website: (fd.get('website') || '').toString(), // honeypot для ботов
+  };
+  const res  = await fetch('/api/v1/contact', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify(payload),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok || json.ok === false) {
+    throw new Error(json.error || ('HTTP ' + res.status));
+  }
+  return true;
+}
+
 
 /* ── SCROLL PROGRESS ────────────────────────────────────────── */
 (function initScrollProgress() {
@@ -363,29 +384,14 @@ const raf = requestAnimationFrame;
     if (errMsg) errMsg.hidden = true;
 
     try {
-      const data = new FormData(form);
+      await postLead(form);
 
-      const res = await fetch('send.php', {
-        method: 'POST',
-        body: data,
-        headers: { 'X-Requested-With': 'XMLHttpRequest' }
-      });
+      form.reset();
+      $$('.field', form).forEach(f => f.classList.remove('is-error'));
+      if (okMsg) okMsg.hidden = false;
 
-      if (res.ok) {
-        const json = await res.json().catch(() => ({}));
-        if (json.success !== false) {
-          form.reset();
-          $$('.field', form).forEach(f => f.classList.remove('is-error'));
-          if (okMsg) okMsg.hidden = false;
-
-          // Yandex Metrika goal — replace XXXXXXXX with real counter ID
-          if (window.ym) window.ym(/* XXXXXXXX */ 0, 'reachGoal', 'form_submit');
-        } else {
-          throw new Error(json.message || 'Server error');
-        }
-      } else {
-        throw new Error('HTTP ' + res.status);
-      }
+      // Yandex Metrika goal — replace XXXXXXXX with real counter ID
+      if (window.ym) window.ym(/* XXXXXXXX */ 0, 'reachGoal', 'form_submit');
     } catch (err) {
       console.error('Form error:', err);
       if (errMsg) errMsg.hidden = false;
@@ -498,21 +504,12 @@ const raf = requestAnimationFrame;
     if (errorEl) errorEl.hidden = true;
 
     try {
-      const res  = await fetch('send.php', {
-        method: 'POST',
-        body:   new FormData(form),
-        headers: { 'X-Requested-With': 'XMLHttpRequest' },
-      });
-      const json = await res.json().catch(() => ({}));
+      await postLead(form);
 
-      if (res.ok && json.success !== false) {
-        if (form)    form.hidden = true;
-        if (success) success.hidden = false;
-        if (window.ym) window.ym(0, 'reachGoal', 'form_submit');
-        setTimeout(closeModal, 3200);
-      } else {
-        throw new Error(json.message || 'Server error');
-      }
+      if (form)    form.hidden = true;
+      if (success) success.hidden = false;
+      if (window.ym) window.ym(0, 'reachGoal', 'form_submit');
+      setTimeout(closeModal, 3200);
     } catch {
       if (errorEl) errorEl.hidden = false;
     } finally {
@@ -602,3 +599,4 @@ const raf = requestAnimationFrame;
     pipes.pauseAnimations();
   }
 })();
+

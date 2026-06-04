@@ -1,5 +1,14 @@
 User-agent: *
 Allow: /
-Disallow: /send.php
+Disallow: /api/
+Disallow: /api.php
+Disallow: /admin
+Disallow: /admin/
+Disallow: /server/
+Disallow: /storage/
+Disallow: /migrations/
+Disallow: /prisma/
+Disallow: /scripts/
+Disallow: /node_modules/
 
 Sitemap: https://polus-servis77.ru/sitemap.xml
