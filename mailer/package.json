@@ -1,0 +1,14 @@
+{
+  "name": "polus-mailer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Минимальный сервис отправки заявок с сайта Полюс Сервис 77",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.16"
+  }
+}

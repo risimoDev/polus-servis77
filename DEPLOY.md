@@ -1,7 +1,8 @@
 # Развёртывание «Полюс Сервис 77» на сервере
 
-Стек поднимается в Docker: **PostgreSQL + Redis + Node.js (API) + Nginx**.
-Форма заявок отправляется на Node API (`/api/v1/contact`) и уходит письмом через SMTP.
+Лендинг + каталог. В Docker поднимается только **Nginx** (отдаёт статику) и
+**mailer** — крошечный сервис на Node, который принимает форму (`/api/v1/contact`)
+и отправляет письмо через ваш SMTP. Без базы данных и лишних зависимостей.
 
 ---
 
@@ -62,19 +63,12 @@ cp .env.example .env
 nano .env
 ```
 
-Заполните обязательно:
+Нужны только данные вашего SMTP:
 
-- **`JWT_SECRET`** — случайная строка ≥32 символов. Сгенерировать:
-  `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"`
-- **База данных** — придумайте пароль и пропишите его в трёх местах согласованно:
-  - `DATABASE_URL="postgresql://polus:ВАШ_ПАРОЛЬ@postgres:5432/polus_servis"` (хост именно `postgres`!)
-  - `DB_PASS=ВАШ_ПАРОЛЬ`
-- **SMTP** (данные вашего провайдера):
-  - `SMTP_HOST`, `SMTP_PORT` (465 или 587), `SMTP_SECURE` (true для 465 / false для 587)
-  - `SMTP_USER` — ящик-отправитель (напр. noreply@polus-servis77.ru)
-  - `SMTP_PASS` — пароль ящика (или «пароль приложения»)
-  - `MAIL_FROM` = `SMTP_USER`; `MAIL_TO` = куда приходят заявки (help@polus-servis77.ru)
-- `CORS_ORIGINS=https://polus-servis77.ru,https://www.polus-servis77.ru`
+- `SMTP_HOST`, `SMTP_PORT` (465 или 587), `SMTP_SECURE` (true для 465 / false для 587)
+- `SMTP_USER` — ящик-отправитель (напр. noreply@polus-servis77.ru)
+- `SMTP_PASS` — пароль ящика (или «пароль приложения»)
+- `MAIL_FROM` = `SMTP_USER`; `MAIL_TO` = куда приходят заявки (help@polus-servis77.ru)
 
 ---
 
@@ -132,7 +126,7 @@ curl -X POST https://polus-servis77.ru/api/v1/contact \
 | TXT | `_dmarc` | `v=DMARC1; p=none; rua=mailto:help@polus-servis77.ru` |
 
 Если письма не приходят:
-- проверьте логи API: `docker compose --profile prod logs -f server`;
+- проверьте логи сервиса формы: `docker compose logs -f mailer`;
 - убедитесь, что хостинг не блокирует исходящий порт 465/587;
 - проверьте логин/пароль SMTP и что провайдер разрешает SMTP для этого ящика.
 
@@ -154,11 +148,11 @@ bash scripts/upload.sh root@<IP> --deploy
 ```bash
 cd /opt/polus-servis77
 
-docker compose --profile prod ps              # статус контейнеров
-docker compose --profile prod logs -f server  # логи API
-docker compose --profile prod logs -f nginx   # логи nginx
-docker compose --profile prod restart nginx   # перезапуск nginx
-docker compose --profile prod down            # остановить всё
+docker compose ps                  # статус контейнеров
+docker compose logs -f mailer      # логи сервиса формы
+docker compose logs -f nginx       # логи nginx
+docker compose restart nginx       # перезапуск nginx
+docker compose down                # остановить всё
 
 sudo certbot certificates                      # статус SSL
 sudo certbot renew --dry-run                   # тест автопродления

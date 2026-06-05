@@ -34,7 +34,7 @@ mkdir -p "$APP_DIR/nginx/ssl"
 # ── 2. Освобождаем порт 80 (если nginx-контейнер запущен) ────────────────────
 if docker ps --format '{{.Names}}' 2>/dev/null | grep -q nginx; then
   log "Останавливаю nginx-контейнер на время валидации..."
-  (cd "$APP_DIR" && docker compose --profile prod stop nginx) || true
+  (cd "$APP_DIR" && docker compose stop nginx) || true
   STOPPED_NGINX=1
 fi
 
@@ -62,7 +62,7 @@ fi
 
 # ── 6. Поднимаем nginx обратно ───────────────────────────────────────────────
 if [[ "${STOPPED_NGINX:-0}" == "1" ]]; then
-  (cd "$APP_DIR" && docker compose --profile prod start nginx) || true
+  (cd "$APP_DIR" && docker compose start nginx) || true
 fi
 
 log "Готово. Сертификат выпущен и настроен на автообновление."
