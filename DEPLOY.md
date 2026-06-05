@@ -1,121 +1,165 @@
-# Деплой Полюс Сервис 77 (polus-servis77.ru)
+# Развёртывание «Полюс Сервис 77» на сервере
 
-## 1. DNS
+Стек поднимается в Docker: **PostgreSQL + Redis + Node.js (API) + Nginx**.
+Форма заявок отправляется на Node API (`/api/v1/contact`) и уходит письмом через SMTP.
 
-Убедитесь, что A-записи `polus-servis77.ru` и `www.polus-servis77.ru` указывают на IP вашего сервера.
+---
 
-## 2. Копирование проекта на сервер
+## 0. Что нужно заранее
+
+- Сервер с **Ubuntu 22.04+**, root/sudo-доступ по SSH.
+- Домен **polus-servis77.ru** с DNS-доступом (где правятся записи).
+- Почтовый ящик и **SMTP-доступ** (host, port, login, пароль) — для отправки заявок.
+
+### DNS-записи домена
+
+| Тип | Имя | Значение |
+|-----|-----|----------|
+| A | `@` (polus-servis77.ru) | IP вашего сервера |
+| A | `www` | IP вашего сервера |
+
+Дождитесь, пока `polus-servis77.ru` начнёт резолвиться в IP сервера (`ping polus-servis77.ru`), иначе не выпустится SSL.
+
+---
+
+## 1. Провижининг сервера (один раз)
+
+Сначала закиньте на сервер скрипт провижининга (он поставит Docker и rsync,
+без которых не сработает загрузка проекта):
 
 ```bash
-# На сервере
-mkdir -p /opt/polus-servis77
+# локально
+scp scripts/server-provision.sh root@<IP-сервера>:/root/
+
+# на сервере, от root
+sudo bash /root/server-provision.sh
+```
+
+Скрипт установит Docker + Compose + rsync, откроет порты 22/80/443, создаст `/opt/polus-servis77`.
+
+---
+
+## 2. Загрузка проекта на сервер
+
+**Локально**, из корня проекта (Windows — Git Bash/WSL, есть `rsync` и `ssh`):
+
+```bash
+bash scripts/upload.sh root@<IP-сервера>
+```
+
+Зальёт файлы в `/opt/polus-servis77`, не трогая `.env`, SSL и загруженные файлы.
+Повторяйте эту команду при каждом обновлении сайта.
+
+---
+
+## 3. Настройка .env
+
+На сервере:
+
+```bash
 cd /opt/polus-servis77
-git clone <repo> .        # или scp / rsync
-```
-
-## 3. Установка SSL (Let's Encrypt)
-
-```bash
-cd /opt/polus-servis77
-chmod +x scripts/setup-ssl.sh
-sudo ./scripts/setup-ssl.sh
-```
-
-Скрипт автоматически:
-- Установит `certbot` и `nginx`
-- Получит сертификаты для `polus-servis77.ru` + `www.polus-servis77.ru`
-- Скопирует `nginx/site.conf` → `/etc/nginx/conf.d/polus-servis77.conf`
-- Подставит пути к сертификатам в конфиг
-- Проверит синтаксис и перезагрузит nginx
-- Настроит автообновление через `cron` или `systemd timer`
-
-### Ручное обновление (если нужно)
-
-```bash
-sudo ./scripts/renew-ssl.sh
-```
-
-Автообновление уже настроено cron'ом (`/etc/crontab`), certbot обновляет сертификаты за 30 дней до истечения.
-
-## 4. Настройка .env
-
-```bash
 cp .env.example .env
 nano .env
 ```
 
-Обязательно проверьте:
-- `CORS_ORIGINS=https://polus-servis77.ru`
-- `SMTP_USER=noreply@polus-servis77.ru`
-- `MAIL_FROM=noreply@polus-servis77.ru`
-- `MAIL_TO=help@polus-servis77.ru`
-- `JWT_SECRET` — сгенерируйте случайную строку ≥32 символов
-- `DATABASE_URL`, `DB_*` — подстройте под вашу БД
-- `SMTP_PASS` — пароль от почты
+Заполните обязательно:
 
-## 5. Запуск (без Docker — чистый лендинг)
+- **`JWT_SECRET`** — случайная строка ≥32 символов. Сгенерировать:
+  `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"`
+- **База данных** — придумайте пароль и пропишите его в трёх местах согласованно:
+  - `DATABASE_URL="postgresql://polus:ВАШ_ПАРОЛЬ@postgres:5432/polus_servis"` (хост именно `postgres`!)
+  - `DB_PASS=ВАШ_ПАРОЛЬ`
+- **SMTP** (данные вашего провайдера):
+  - `SMTP_HOST`, `SMTP_PORT` (465 или 587), `SMTP_SECURE` (true для 465 / false для 587)
+  - `SMTP_USER` — ящик-отправитель (напр. noreply@polus-servis77.ru)
+  - `SMTP_PASS` — пароль ящика (или «пароль приложения»)
+  - `MAIL_FROM` = `SMTP_USER`; `MAIL_TO` = куда приходят заявки (help@polus-servis77.ru)
+- `CORS_ORIGINS=https://polus-servis77.ru,https://www.polus-servis77.ru`
 
-Если используете только PHP + nginx (без Node.js API):
+---
+
+## 4. SSL-сертификат (один раз)
+
+DNS уже должен указывать на сервер. Затем:
 
 ```bash
-# Убедитесь, что nginx конфиг указывает на /opt/polus-servis77
-sudo nginx -t
-sudo systemctl reload nginx
+sudo bash scripts/ssl-init.sh
 ```
 
-## 6. Запуск (Docker — полный стек)
+Выпустит сертификат Let's Encrypt, положит его в `nginx/ssl/` и настроит автообновление
+(хук перезапустит nginx-контейнер при продлении).
+
+---
+
+## 5. Запуск
 
 ```bash
-# Подготовка SSL для Docker
 cd /opt/polus-servis77
-sudo cp /etc/letsencrypt/live/polus-servis77.ru/fullchain.pem nginx/ssl/
-sudo cp /etc/letsencrypt/live/polus-servis77.ru/privkey.pem   nginx/ssl/
-
-# Запуск
-sudo docker compose --profile prod up -d
+bash scripts/deploy.sh
 ```
 
-> **Важно:** при использовании Docker certbot должен быть установлен на **хосте**, а не внутри контейнера. После автообновления сертификатов на хосте выполняйте:
-> ```bash
-> sudo cp /etc/letsencrypt/live/polus-servis77.ru/*.pem /opt/polus-servis77/nginx/ssl/
-> sudo docker compose restart nginx
-> ```
-> Это можно добавить в `renewal-hook` certbot или cron.
+Соберёт образы, поднимет весь стек и применит миграции БД.
 
-## 7. Проверка
+---
 
-- `https://polus-servis77.ru` — должен открываться с зелёным замком
-- `http://polus-servis77.ru` → 301 redirect на HTTPS
-- API: `https://polus-servis77.ru/api/health`
+## 6. Проверка
 
-## 8. Полезные команды
+- `https://polus-servis77.ru` — сайт открывается с замком.
+- `http://polus-servis77.ru` → 301 на HTTPS; `https://www...` → 301 на без-www.
+- `https://polus-servis77.ru/api/health` → `{"ok":true,...}`.
+- Отправьте заявку через форму на сайте → письмо должно прийти на `MAIL_TO`.
+
+Проверка API напрямую:
 
 ```bash
-# Проверка конфига nginx
-sudo nginx -t
-
-# Перезагрузка nginx
-sudo systemctl reload nginx
-
-# Логи certbot
-sudo certbot certificates
-sudo certbot renew --dry-run
-
-# Логи nginx
-sudo tail -f /var/log/nginx/access.log
-sudo tail -f /var/log/nginx/error.log
+curl -X POST https://polus-servis77.ru/api/v1/contact \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Тест","phone":"+79990000000","message":"проверка"}'
+# Ожидается: {"ok":true}
 ```
 
-## Что изменено в коде при смене домена
+---
 
-Старый домен `risimobzkdev.ru` уже был полностью заменён на `polus-servis77.ru` во всех файлах проекта:
+## 7. Почта — чтобы заявки доходили и не падали в спам
 
-- `index.html` — `og:url`, `canonical`, `ld+json`, email
-- `.env.example` — `CORS_ORIGINS`, `SMTP_USER`, `MAIL_FROM`, `MAIL_TO`
-- `send.php` — `TO_EMAIL`, `FROM_EMAIL`
-- `robots.txt` — `Sitemap`
-- `sitemap.xml` — `<loc>`
-- `nginx/site.conf` — `server_name`
-- `nginx/nginx.conf` — `server_name`
-- `src/Config/Mail.php` — `from_addr`, `to`
-- `src/Config/App.php` — `APP_URL`
+Отправка уже работает после шага 3 (SMTP в `.env`). Для **доставляемости** добавьте DNS-записи
+(значения берёте у своего почтового провайдера):
+
+| Тип | Имя | Значение (пример) |
+|-----|-----|--------|
+| TXT | `@` | `v=spf1 include:_spf.<провайдер> ~all` |
+| TXT | `mail._domainkey` (имя даёт провайдер) | DKIM-ключ от провайдера |
+| TXT | `_dmarc` | `v=DMARC1; p=none; rua=mailto:help@polus-servis77.ru` |
+
+Если письма не приходят:
+- проверьте логи API: `docker compose --profile prod logs -f server`;
+- убедитесь, что хостинг не блокирует исходящий порт 465/587;
+- проверьте логин/пароль SMTP и что провайдер разрешает SMTP для этого ящика.
+
+---
+
+## 8. Обновление сайта
+
+```bash
+# локально
+bash scripts/upload.sh root@<IP> --deploy
+```
+
+Флаг `--deploy` сразу пересоберёт и перезапустит стек на сервере.
+
+---
+
+## 9. Полезные команды
+
+```bash
+cd /opt/polus-servis77
+
+docker compose --profile prod ps              # статус контейнеров
+docker compose --profile prod logs -f server  # логи API
+docker compose --profile prod logs -f nginx   # логи nginx
+docker compose --profile prod restart nginx   # перезапуск nginx
+docker compose --profile prod down            # остановить всё
+
+sudo certbot certificates                      # статус SSL
+sudo certbot renew --dry-run                   # тест автопродления
+```

@@ -2977,3 +2977,13 @@ blockquote { quotes: none; }
   .srv-detail__layout { grid-template-columns: 1fr; gap: 36px; }
   .srv-detail__aside { position: static; }
 }
+@media (max-width: 560px) {
+  .srv-detail__body { padding-block: 36px 56px; }
+  .srv-detail__title { overflow-wrap: break-word; }
+  .srv-detail__h2 { font-size: 22px; }
+  /* Кнопки в герое — на всю ширину, в столбик (не жмутся на узком экране) */
+  .srv-detail__hero-cta { flex-direction: column; align-items: stretch; }
+  .srv-detail__hero-cta .btn { width: 100%; justify-content: center; }
+  .srv-step { padding: 16px; gap: 14px; }
+  .srv-gallery { grid-template-columns: 1fr 1fr; }
+}
