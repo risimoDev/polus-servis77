@@ -2715,7 +2715,17 @@ blockquote { quotes: none; }
 @media (max-width: 768px) {
   .prod-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .cat-controls { gap: 12px; }
-  .cat-tabs { overflow-x: auto; }
+  /* Табы категорий — на всю ширину, переносятся по содержимому, без обрезки */
+  .cat-tabs {
+    width: 100%;
+    flex-wrap: wrap;
+    flex-shrink: 1;
+  }
+  .cat-tab {
+    flex: 1 1 auto;
+    text-align: center;
+    padding-inline: 12px;
+  }
   .cat-search { min-width: 100%; flex-basis: 100%; }
 }
 @media (max-width: 480px) {
