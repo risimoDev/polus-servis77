@@ -25,8 +25,9 @@
 
 'use strict';
 
-const fs   = require('fs');
-const path = require('path');
+const fs    = require('fs');
+const path  = require('path');
+const sharp = require('sharp');   // для конвертации картинок в webp
 
 /* ── Настройки ──────────────────────────────────────────────── */
 const ORIGIN   = 'https://everest-59.ru';
@@ -144,13 +145,14 @@ async function downloadImages(products) {
   for (const p of products) {
     const local = [];
     for (const imgUrl of p.images) {
-      const file = path.basename(new URL(imgUrl).pathname);
+      // Сохраняем сразу в webp (меньше размер, быстрее грузится)
+      const file = path.basename(new URL(imgUrl).pathname).replace(/\.(png|jpe?g|webp)$/i, '.webp');
       const dest = path.join(IMG_DIR, file);
       if (!fs.existsSync(dest)) {
         try {
           const res = await fetch(imgUrl, { headers: { 'User-Agent': UA } });
           if (res.ok) {
-            fs.writeFileSync(dest, Buffer.from(await res.arrayBuffer()));
+            await sharp(Buffer.from(await res.arrayBuffer())).webp({ quality: 85 }).toFile(dest);
             saved++;
             await sleep(DELAY_MS / 2);
           }

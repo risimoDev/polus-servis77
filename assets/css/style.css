@@ -364,6 +364,25 @@ blockquote { quotes: none; }
 }
 .header__phone:hover { color: var(--red); }
 
+/* Два телефона в шапке (продажи / сервис) */
+.header__phones { display: flex; flex-direction: column; gap: 1px; }
+.header__phones .header__phone {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 13.5px;
+  line-height: 1.3;
+}
+.header__dept {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.45);
+  min-width: 48px;
+}
+.footer__dept { color: var(--muted); font-weight: 400; }
+
 /* Burger */
 .burger {
   display: none;
@@ -1525,7 +1544,8 @@ blockquote { quotes: none; }
 
   .nav { display: none; }
   .header__cta { margin-inline-start: auto; }
-  .header__cta .header__phone { display: none; }
+  .header__cta .header__phone,
+  .header__cta .header__phones { display: none; }
   .burger { display: flex; }
 
   /* Mobile nav overlay */

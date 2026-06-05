@@ -92,7 +92,7 @@
               <p class="srv-detail__summary">${esc(s.summary)}</p>
               <div class="srv-detail__hero-cta">
                 <a href="#" class="btn btn--primary js-modal-open">Оставить заявку</a>
-                <a href="tel:+79082698047" class="btn btn--outline">+7 908 269-80-47</a>
+                <a href="tel:+79299233392" class="btn btn--outline">+7 929 923-33-92</a>
               </div>
             </div>
             <div class="srv-detail__hero-img">
@@ -177,7 +177,7 @@
         'provider': {
           '@type': 'LocalBusiness',
           'name': 'Полюс Сервис',
-          'telephone': '+79082698047',
+          'telephone': '+79299233392',
           'url': ORIGIN
         },
         'areaServed': { '@type': 'Country', 'name': 'Россия' }

@@ -71,7 +71,9 @@ let added = 0;
 for (const p of products) {
   const model  = (p.name || '').trim();
   const name   = `Теплообменник пластинчатый Эверест ${model}`.trim();
-  const img    = (p.localImages && p.localImages[0]) || (p.images && p.images[0]) || null;
+  let   img    = (p.localImages && p.localImages[0]) || (p.images && p.images[0]) || null;
+  // Локальные картинки хранятся в webp — приводим расширение
+  if (img && /assets\/images\/everest\//.test(img)) img = img.replace(/\.(png|jpe?g)$/i, '.webp');
   data.items.push([name, vendorIdx, model, p.price || null, CAT_ID, imgIdxOf(img)]);
   added++;
 }

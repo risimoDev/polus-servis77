@@ -13,9 +13,9 @@ cats.forEach(c => { parentMap[c['@id']] = c['@parentId'] || c['@id']; });
 
 const ROOT_IDS  = { '280': 'Пластины', '281': 'Уплотнения', '359': 'Теплообменники' };
 const ROOT_IMGS = {
-  '280': 'assets/images/catalog/h8ty2nm3sudf59qvw49nqrf7n1p4bqkm.png',
-  '281': 'assets/images/catalog/wrdmv4rhxpv5aj3vluj3hk7to726pait.png',
-  '359': 'assets/images/catalog/4xah6ktk5cjnwi6panlwtkiu4ge2iiew.png',
+  '280': 'assets/images/catalog/h8ty2nm3sudf59qvw49nqrf7n1p4bqkm.webp',
+  '281': 'assets/images/catalog/wrdmv4rhxpv5aj3vluj3hk7to726pait.webp',
+  '359': 'assets/images/catalog/4xah6ktk5cjnwi6panlwtkiu4ge2iiew.webp',
 };
 
 // Deduplicated image list (index → URL)
