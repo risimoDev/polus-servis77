@@ -141,6 +141,30 @@ bash scripts/upload.sh root@<IP> --deploy
 
 Флаг `--deploy` сразу пересоберёт и перезапустит стек на сервере.
 
+После значимого обновления контента полезно уведомить Яндекс (см. ниже).
+
+---
+
+## 8a. IndexNow — мгновенное уведомление поисковиков
+
+Протокол [IndexNow](https://yandex.ru/support/webmaster/ru/indexing-options/index-now.html)
+сообщает Яндексу (и Bing/Seznam) об изменениях, чтобы робот пришёл сразу, а не ждал обхода.
+
+Уже настроено: ключ-файл `a790da1b5dc0851cadbb3630139ac157.txt` лежит в корне и отдаётся
+по `https://polus-servis77.ru/a790da1b5dc0851cadbb3630139ac157.txt`.
+
+После обновления контента (новые услуги, изменения в каталоге, цены) запустите:
+
+```bash
+# все URL из sitemap
+node scripts/indexnow.cjs
+
+# или только изменённые страницы
+node scripts/indexnow.cjs https://polus-servis77.ru/catalog.html https://polus-servis77.ru/
+```
+
+Это дополнение к `sitemap.xml`, а не замена. Отправляйте только новые/изменённые URL.
+
 ---
 
 ## 9. Полезные команды
