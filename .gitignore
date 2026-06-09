@@ -34,3 +34,10 @@ vendor/
 
 # Prisma — generated migrations committed, but local shadow DB not needed
 prisma/.env
+assets/data/запасные-части.md
+assets/data/ИТП-и-БИТП.md
+assets/data/Пластинчатые-теплообменники-и-запасные-части-к-ним.md
+assets/data/Профессиональные-реагенты-для-промывки-и-защиты-теплового-оборудования.md
+assets/data/Техническое-обслуживание-и-ремонт-инженерных-систем-для-ТСЖ-и-УК.md
+assets/data/Таблица-химической-стойкости-уплотнительных-материалов.md
+assets/data/Промывка-пластинчатых-теплообменников-и-замена-запчастей.md

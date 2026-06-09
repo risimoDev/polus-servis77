@@ -24,7 +24,16 @@
       const data = await res.json();
       const svc  = (data.services || []).find(s => s.slug === slug);
       if (!svc) return renderNotFound();
-      render(svc);
+
+      // Подробная статья услуги (опционально) — отдельный HTML-фрагмент
+      let article = '';
+      if (svc.article) {
+        try {
+          const ar = await fetch(svc.article);
+          if (ar.ok) article = await ar.text();
+        } catch { /* статья опциональна */ }
+      }
+      render(svc, article);
     } catch (e) {
       renderNotFound();
     }
@@ -32,7 +41,7 @@
 
   const ORIGIN = 'https://polus-servis77.ru';
 
-  function render(s) {
+  function render(s, article = '') {
     // ── SEO: заголовок, мета-теги, канонический URL ──
     const pageUrl   = `${ORIGIN}/service.html?id=${s.slug}`;
     const pageTitle = `${s.title} — Полюс Сервис`;
@@ -106,14 +115,15 @@
         <div class="container srv-detail__layout">
           <div class="srv-detail__main">
 
-            ${s.intro ? `<section class="srv-detail__block">
+            ${article
+              ? `<article class="srv-article">${article}</article>`
+              : `${s.intro ? `<section class="srv-detail__block">
               <p class="srv-detail__intro">${esc(s.intro)}</p>
             </section>` : ''}
-
             ${steps ? `<section class="srv-detail__block">
               <h2 class="srv-detail__h2">Как это происходит</h2>
               <ol class="srv-steps" role="list">${steps}</ol>
-            </section>` : ''}
+            </section>` : ''}`}
 
             ${gallery ? `<section class="srv-detail__block">
               <h2 class="srv-detail__h2">Фотографии</h2>

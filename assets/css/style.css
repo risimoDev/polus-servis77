@@ -3017,3 +3017,116 @@ blockquote { quotes: none; }
   .srv-step { padding: 16px; gap: 14px; }
   .srv-gallery { grid-template-columns: 1fr 1fr; }
 }
+
+/* ═══════════════════════ ПОДРОБНАЯ СТАТЬЯ УСЛУГИ ═══════════════════════ */
+.srv-article {
+  color: var(--ink-mid);
+  font-size: 16px;
+  line-height: 1.75;
+}
+.srv-article > *:first-child { margin-top: 0; }
+.srv-article p { margin: 0 0 16px; }
+.srv-article strong { color: var(--ink); font-weight: 600; }
+.srv-article a { color: var(--blue-accent); text-decoration: underline; }
+.srv-article a:hover { color: var(--blue-dark); }
+
+.srv-article h2 {
+  font-family: var(--font-head);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  margin: 40px 0 16px;
+}
+.srv-article h3 {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 28px 0 12px;
+}
+
+/* Лид-абзац (вводка статьи) */
+.srv-article__lead {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink);
+  font-weight: 500;
+  margin-bottom: 22px;
+}
+
+/* Списки */
+.srv-article ul,
+.srv-article ol { margin: 0 0 18px; padding-left: 0; list-style: none; }
+.srv-article li { position: relative; padding-left: 26px; margin-bottom: 9px; }
+.srv-article ul > li::before {
+  content: '';
+  position: absolute;
+  left: 5px; top: 10px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+}
+.srv-article ol { counter-reset: li; }
+.srv-article ol > li { counter-increment: li; }
+.srv-article ol > li::before {
+  content: counter(li);
+  position: absolute;
+  left: 0; top: 0;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--red);
+}
+
+/* Список преимуществ (бывшие галочки ✅) */
+.srv-checks li::before {
+  content: '✓';
+  background: none;
+  left: 0; top: 0;
+  width: auto; height: auto;
+  color: var(--red);
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 0;
+}
+
+/* Таблицы */
+.srv-article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 22px;
+  font-size: 14.5px;
+}
+.srv-article th,
+.srv-article td {
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.55;
+}
+.srv-article th {
+  background: var(--off-white);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Выноска/совет */
+.srv-article__note {
+  background: var(--blue-soft);
+  border-left: 3px solid var(--blue-accent);
+  padding: 14px 18px;
+  border-radius: var(--r-sm);
+  margin: 0 0 18px;
+  font-size: 15px;
+  color: var(--ink-mid);
+}
+
+@media (max-width: 560px) {
+  .srv-article { font-size: 15px; }
+  .srv-article h2 { font-size: 21px; }
+  .srv-article__lead { font-size: 16.5px; }
+  /* Таблицы — горизонтальная прокрутка на узких экранах */
+  .srv-article table { display: block; overflow-x: auto; }
+}
