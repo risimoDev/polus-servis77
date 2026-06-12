@@ -3130,3 +3130,141 @@ blockquote { quotes: none; }
   /* Таблицы — горизонтальная прокрутка на узких экранах */
   .srv-article table { display: block; overflow-x: auto; }
 }
+
+/* ═══════════════════ НАЗНАЧЕНИЕ / ПРИМЕНЕНИЕ ═══════════════════ */
+.apps {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--section-py);
+}
+.apps .section-header { position: relative; z-index: 2; margin-bottom: 48px; }
+.apps__sub { color: rgba(255,255,255,0.6); }
+
+/* Анимированное свечение фона (горячий + холодный блобы) */
+.apps__aura {
+  position: absolute;
+  inset: -25% -10%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 48% at 18% 28%, rgba(227,27,46,0.18), transparent 70%),
+    radial-gradient(40% 50% at 82% 72%, rgba(26,69,232,0.20), transparent 70%);
+  filter: blur(8px);
+  animation: appsAura 16s ease-in-out infinite alternate;
+}
+@keyframes appsAura {
+  0%   { transform: translate3d(0,0,0) scale(1);    opacity: .8; }
+  100% { transform: translate3d(0,-3%,0) scale(1.1); opacity: 1; }
+}
+
+/* Бенто-сетка отраслей с фотографиями */
+.ind-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 290px;
+  gap: 16px;
+}
+.ind-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,0.08);
+  isolation: isolate;
+}
+.ind-card--wide { grid-column: span 2; }
+
+/* Фото-подложка с зумом (Ken Burns) */
+.ind-card__media {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+  filter: saturate(0.92);
+  transition: transform 1.1s cubic-bezier(0.2,0.6,0.2,1), filter var(--dur);
+}
+.ind-card:hover .ind-card__media { transform: scale(1.1); filter: saturate(1.06); }
+
+/* Фирменный duotone (красный→синий) + затемнение снизу */
+.ind-card__shade {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(6,12,24,0) 28%, rgba(6,12,24,0.55) 64%, rgba(6,12,24,0.95) 100%),
+    linear-gradient(135deg, rgba(227,27,46,0.32) 0%, rgba(10,16,32,0.08) 45%, rgba(26,69,232,0.44) 100%);
+  transition: opacity var(--dur);
+}
+.ind-card:hover .ind-card__shade { opacity: 0.9; }
+
+.ind-card__idx {
+  position: absolute; top: 14px; right: 18px; z-index: 2;
+  font-family: var(--font-head);
+  font-size: 30px; font-weight: 800; line-height: 1;
+  letter-spacing: -0.03em;
+  color: rgba(255,255,255,0.22);
+}
+
+.ind-card__body {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 24px 24px 26px;
+}
+.ind-card__icon {
+  width: 40px; height: 40px; margin-bottom: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  border-radius: 11px;
+  background: linear-gradient(135deg, var(--red), var(--blue-accent));
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  transition: transform var(--dur) var(--ease-spring);
+}
+.ind-card:hover .ind-card__icon { transform: translateY(-3px) scale(1.06); }
+.ind-card__title {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 19px; font-weight: 700; line-height: 1.25;
+  color: #fff;
+  text-shadow: 0 2px 14px rgba(0,0,0,0.5);
+}
+/* Описание — выезжает при наведении */
+.ind-card__text {
+  margin: 0;
+  font-size: 14px; line-height: 1.55;
+  color: rgba(255,255,255,0.82);
+  max-height: 0; opacity: 0;
+  transform: translateY(6px);
+  overflow: hidden;
+  transition: max-height 0.5s var(--ease), opacity 0.4s var(--ease),
+              transform 0.4s var(--ease), margin-top 0.4s var(--ease);
+}
+.ind-card:hover .ind-card__text {
+  max-height: 130px; opacity: 1; transform: translateY(0); margin-top: 10px;
+}
+
+/* Верхняя акцентная полоса (растёт при наведении) */
+.ind-card__bar {
+  position: absolute; left: 0; top: 0; z-index: 2;
+  height: 4px; width: 0;
+  background: linear-gradient(90deg, var(--red), var(--blue-accent));
+  transition: width 0.6s var(--ease);
+}
+.ind-card:hover .ind-card__bar { width: 100%; }
+
+/* На тач-устройствах описание показываем сразу */
+@media (hover: none) {
+  .ind-card__text { max-height: 130px; opacity: 1; transform: none; margin-top: 10px; }
+}
+
+@media (max-width: 900px) {
+  .ind-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 240px; gap: 12px; }
+  .apps .section-header { margin-bottom: 36px; }
+}
+@media (max-width: 560px) {
+  .ind-grid { grid-template-columns: 1fr; grid-auto-rows: 208px; }
+  .ind-card--wide { grid-column: span 1; }
+  .ind-card__text { max-height: 130px; opacity: 1; transform: none; margin-top: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .apps__aura { animation: none; }
+  .ind-card__media { transition: none; }
+}

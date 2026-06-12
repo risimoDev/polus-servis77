@@ -1,0 +1,32 @@
+{
+  "utilities": {
+    "license": "CC BY-SA 4.0",
+    "author": "Lauri Veerde",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Waste_incineration_boiler_in_Iru_Thermal_Power_Plant.jpg/1920px-Waste_incineration_boiler_in_Iru_Thermal_Power_Plant.jpg"
+  },
+  "oil": {
+    "license": "Public domain",
+    "author": "John Vachon",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/OIL_REFINERY_IN_THE_SUNSET_-_NARA_-_546384.jpg/1920px-OIL_REFINERY_IN_THE_SUNSET_-_NARA_-_546384.jpg"
+  },
+  "metallurgy": {
+    "license": "CC BY-SA 2.0",
+    "author": "Alan Murray-Rust",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/47/Redcar_blast_furnace_-_geograph.org.uk_-_1709346.jpg"
+  },
+  "food": {
+    "license": "CC BY 2.0",
+    "author": "U.S. Department of Agriculture",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/The_processing_plant_at_Lakota_Foods_%2815690553980%29.jpg/1920px-The_processing_plant_at_Lakota_Foods_%2815690553980%29.jpg"
+  },
+  "ship": {
+    "license": "Public domain",
+    "author": "MCSN Desmond Parks",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/The_roll-on-roll-off_and_container_ship_MV_Cape_Ray_%28T-AKR_9679%29_enters_the_Medcenter_Container_Terminal_in_Gioia_Tauro%2C_Italy%2C_July_1%2C_2014%2C_to_receive_cargo_containing_specific_chemical_agents_from_140701-N-XB010-007.jpg/1920px-thumbnail.jpg"
+  },
+  "energy": {
+    "license": "CC BY-SA 4.0",
+    "author": "Radomianin",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Rostock_Power_Station%2C_SW_view.jpg/1920px-Rostock_Power_Station%2C_SW_view.jpg"
+  }
+}
