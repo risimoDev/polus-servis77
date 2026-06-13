@@ -38,6 +38,9 @@ const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
 const raf = requestAnimationFrame;
 
+/* Страница успешной отправки заявки — туда ведут все формы после успеха */
+const LEAD_OK_URL = 'spasibo.html';
+
 /* Отправка заявки на Node-бэкенд (/api/v1/contact). Бросает исключение при ошибке. */
 async function postLead(form) {
   const fd = new FormData(form);
@@ -386,12 +389,10 @@ async function postLead(form) {
     try {
       await postLead(form);
 
-      form.reset();
-      $$('.field', form).forEach(f => f.classList.remove('is-error'));
-      if (okMsg) okMsg.hidden = false;
-
       // Yandex Metrika goal — replace XXXXXXXX with real counter ID
       if (window.ym) window.ym(/* XXXXXXXX */ 0, 'reachGoal', 'form_submit');
+      // Переход на страницу успешной отправки
+      window.location.assign(LEAD_OK_URL);
     } catch (err) {
       console.error('Form error:', err);
       if (errMsg) errMsg.hidden = false;
@@ -506,10 +507,9 @@ async function postLead(form) {
     try {
       await postLead(form);
 
-      if (form)    form.hidden = true;
-      if (success) success.hidden = false;
       if (window.ym) window.ym(0, 'reachGoal', 'form_submit');
-      setTimeout(closeModal, 3200);
+      // Переход на страницу успешной отправки
+      window.location.assign(LEAD_OK_URL);
     } catch {
       if (errorEl) errorEl.hidden = false;
     } finally {
