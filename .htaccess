@@ -1,51 +1,93 @@
-Options -Indexes
+# ═══════════════════════════════════════════════════════════════
+#  Полюс Сервис 77 — конфигурация Apache (.htaccess)
+#  Внимание: .htaccess читает ТОЛЬКО Apache. На nginx (Docker-деплой)
+#  он игнорируется — там действует nginx/nginx.conf.
+# ═══════════════════════════════════════════════════════════════
+
+Options -Indexes -MultiViews
 DirectoryIndex index.html
 
-# Block direct access to internal directories
-RewriteEngine On
-RewriteRule ^src/        - [F,L]
-RewriteRule ^migrations/ - [F,L]
-RewriteRule ^storage/(?!uploads/) - [F,L]
-RewriteRule ^\.env       - [F,L]
-RewriteRule ^composer    - [F,L]
+# ── Страницы ошибок ────────────────────────────────────────────
+# Любой несуществующий адрес и закрытые файлы отдают страницу 404
+ErrorDocument 404 /404.html
+ErrorDocument 403 /404.html
 
-# Force HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+<IfModule mod_rewrite.c>
+  RewriteEngine On
 
-# Route all /api/* requests to api.php
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^api/(.*)$ api.php [QSA,L]
+  # ── Канонический хост и протокол ────────────────────────────
+  # http → https (учитываем прокси/CDN через X-Forwarded-Proto, чтобы не зациклить)
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-# Admin SPA — serve index.html for all /admin/* non-file paths
-RewriteRule ^admin/?$ admin/index.html [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^admin/(.*)$ admin/index.html [L]
+  # www → без www
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 
-# Pass through existing static files
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^ - [L]
+  # ── Форма заявок: /api/* → api.php (PHP-бэкенд) ─────────────
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^api/(.*)$ api.php [QSA,L]
 
-# Security headers
+  # ── Админ-панель (SPA), если используется ──────────────────
+  RewriteRule ^admin/?$ admin/index.html [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^admin/(.*)$ admin/index.html [L]
+
+  # Существующие файлы отдаём как есть; всё остальное Apache
+  # сам отдаст как 404 (ErrorDocument выше). SPA-fallback нет —
+  # чтобы доступны были только реально существующие страницы.
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
+</IfModule>
+
+# ── Закрываем служебные файлы и папки (отдаём 404) ─────────────
+# Папки бэкенда, исходников и утилит
+RedirectMatch 404 (?i)^/(server|src|prisma|migrations|node_modules|scripts|nginx|mailer)(/|$)
+RedirectMatch 404 (?i)^/storage/(?!uploads/)
+# Файлы по расширению (исходники, конфиги, тексты-черновики, логи)
+RedirectMatch 404 (?i)\.(env|ini|log|sh|bash|cjs|mjs|ts|tsx|map|yml|yaml|lock|md|sql)$
+# Конкретные служебные файлы в корне
+RedirectMatch 404 (?i)^/(composer\.(json|lock)|package(-lock)?\.json|tsconfig\.json|dockerfile|docker-compose\.yml|yandex_522493\.json)$
+# Скрытые файлы (.env, .git, .htaccess…), кроме .well-known (ACME/SSL)
+RedirectMatch 404 ^/\.(?!well-known)
+
+# Доступ к самому .htaccess запрещён
+<Files ".htaccess">
+  Require all denied
+</Files>
+
+# ── Заголовки безопасности ─────────────────────────────────────
 <IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(self)"
+
+  # HTML не кэшируем (всегда свежий), ассеты версионируются через ?v=
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
 </IfModule>
 
-# Gzip compression
+# ── Сжатие ─────────────────────────────────────────────────────
 <IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml \
+    application/javascript application/json image/svg+xml application/xml
 </IfModule>
 
-# Cache static assets
+# ── Кэш статики ────────────────────────────────────────────────
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresByType text/css             "access plus 1 year"
+  ExpiresByType text/css               "access plus 1 year"
   ExpiresByType application/javascript "access plus 1 year"
-  ExpiresByType image/svg+xml        "access plus 1 month"
-  ExpiresByType image/webp           "access plus 1 month"
-  ExpiresByType font/woff2           "access plus 1 year"
+  ExpiresByType image/png              "access plus 6 months"
+  ExpiresByType image/jpeg             "access plus 6 months"
+  ExpiresByType image/webp             "access plus 6 months"
+  ExpiresByType image/svg+xml          "access plus 6 months"
+  ExpiresByType image/x-icon           "access plus 1 year"
+  ExpiresByType font/woff2             "access plus 1 year"
+  ExpiresByType application/json       "access plus 1 hour"
 </IfModule>
