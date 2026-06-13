@@ -2,10 +2,12 @@
 set -euo pipefail
 
 # =============================================================================
-#  Полюс Сервис 77 — применение конфига nginx без простоя
+#  Полюс Сервис 77 — применение конфига nginx
 # =============================================================================
-#  Конфиг nginx/nginx.conf монтируется в контейнер, поэтому пересборка не нужна:
-#  достаточно проверить синтаксис и сделать reload.
+#  ВАЖНО: nginx/nginx.conf монтируется в контейнер как ОДИНОЧНЫЙ ФАЙЛ.
+#  После `git pull` файл заменяется (новый inode), а bind-mount остаётся
+#  привязан к старому — поэтому обычный `nginx -s reload` читает СТАРЫЙ
+#  конфиг. Чтобы применился новый файл, контейнер nginx нужно ПЕРЕСОЗДАТЬ.
 #
 #  Запускать на СЕРВЕРЕ после обновления кода (git pull):
 #    cd /opt/polus-servis77 && bash scripts/nginx-reload.sh
@@ -19,27 +21,29 @@ err()  { echo -e "\033[1;31m[-]\033[0m $*" >&2; exit 1; }
 
 command -v docker >/dev/null || err "Docker не установлен."
 
-# Контейнер nginx запущен?
+# 1. Проверяем НОВЫЙ конфиг в одноразовом контейнере.
+#    `run` создаёт свежий контейнер → монтируется текущий (новый) файл,
+#    сеть compose даёт резолв upstream'а 'mailer'.
+log "Проверка нового конфига nginx..."
+if ! docker compose run --rm -T nginx nginx -t; then
+  err "Конфиг невалиден — ничего не менял. Исправьте nginx/nginx.conf."
+fi
+
+# 2. Пересоздаём рабочий контейнер nginx, чтобы он прочитал новый файл.
+log "Применение: пересоздаю контейнер nginx..."
+docker compose up -d --force-recreate nginx
+
+sleep 2
 if ! docker compose ps --status running nginx 2>/dev/null | grep -q nginx; then
-  warn "Контейнер nginx не запущен — поднимаю стек."
-  docker compose up -d
-  sleep 3
+  err "nginx не поднялся после пересоздания. Логи: docker compose logs --tail=40 nginx"
 fi
 
-# 1. Проверка синтаксиса (внутри контейнера, где резолвится host 'mailer')
-log "Проверка конфигурации nginx..."
-if ! docker compose exec -T nginx nginx -t; then
-  err "Ошибка в конфигурации nginx — reload отменён. Исправьте nginx/nginx.conf."
-fi
-
-# 2. Горячая перезагрузка без обрыва соединений
-log "Перезагрузка nginx..."
-docker compose exec -T nginx nginx -s reload
-
-log "Готово. Конфиг применён."
+log "Готово. Новый конфиг применён."
 echo
-echo "Проверка:"
-echo "  curl -I  https://polus-servis77.ru/                  # 200"
-echo "  curl -I  https://polus-servis77.ru/api/health        # 200"
-echo "  curl -sI https://polus-servis77.ru/nesushestvuet | head -1   # 404"
-echo "  curl -sI https://polus-servis77.ru/DEPLOY.md | head -1        # 404"
+echo "Проверка (должно быть так):"
+echo "  curl -sI https://polus-servis77.ru/            | head -1   # 200"
+echo "  curl -s  https://polus-servis77.ru/api/health             # {\"ok\":true,...}"
+echo "  curl -sI https://polus-servis77.ru/nesushestvuet | head -1 # 404"
+echo "  curl -sI https://polus-servis77.ru/DEPLOY.md   | head -1   # 404"
+echo "  curl -sI https://polus-servis77.ru/admin       | head -1   # 404"
+echo "  curl -sI https://polus-servis77.ru/admin/      | head -1   # 404"
