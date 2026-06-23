@@ -41,6 +41,29 @@ const raf = requestAnimationFrame;
 /* Страница успешной отправки заявки — туда ведут все формы после успеха */
 const LEAD_OK_URL = 'spasibo.html';
 
+/* ── ЯНДЕКС.МЕТРИКА: цели ────────────────────────────────────── */
+const METRIKA_ID = 109678501;
+/* Безопасный вызов цели: ym может ещё не загрузиться (adblock и т.п.) */
+function psGoal(name) {
+  if (window.ym) window.ym(METRIKA_ID, 'reachGoal', name);
+}
+/* Делегированное отслеживание кликов по телефонам и Telegram.
+ * Покрывает и статичные ссылки, и динамически отрисованные (страницы услуг). */
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href]');
+  if (!a) return;
+  const href = a.getAttribute('href') || '';
+  if (href.startsWith('tel:')) {
+    const digits = href.replace(/\D/g, '');
+    if (digits.endsWith('79299233392'))      psGoal('click_phone_sales');
+    else if (digits.endsWith('79295933359')) psGoal('click_phone_service');
+  } else if (/t\.me\/KLagent159/i.test(href)) {
+    psGoal('click_telegram');
+  }
+});
+/* Доступ из service.js (инлайн-форма на страницах услуг) */
+window.psGoal = psGoal;
+
 /* Отправка заявки на Node-бэкенд (/api/v1/contact). Бросает исключение при ошибке. */
 async function postLead(form) {
   const fd = new FormData(form);
@@ -61,6 +84,8 @@ async function postLead(form) {
   }
   return true;
 }
+/* Доступ из service.js (инлайн-форма на страницах услуг) */
+window.postLead = postLead;
 
 
 /* ── SCROLL PROGRESS ────────────────────────────────────────── */
@@ -389,8 +414,8 @@ async function postLead(form) {
     try {
       await postLead(form);
 
-      // Yandex Metrika goal — replace XXXXXXXX with real counter ID
-      if (window.ym) window.ym(/* XXXXXXXX */ 0, 'reachGoal', 'form_submit');
+      // Yandex Metrika: цель «отправка заявки»
+      psGoal('form_submit');
       // Переход на страницу успешной отправки
       window.location.assign(LEAD_OK_URL);
     } catch (err) {
@@ -507,7 +532,8 @@ async function postLead(form) {
     try {
       await postLead(form);
 
-      if (window.ym) window.ym(0, 'reachGoal', 'form_submit');
+      // Yandex Metrika: цель «отправка заявки»
+      psGoal('form_submit');
       // Переход на страницу успешной отправки
       window.location.assign(LEAD_OK_URL);
     } catch {

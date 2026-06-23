@@ -2995,6 +2995,21 @@ blockquote { quotes: none; }
   background: var(--red);
 }
 
+/* Inline lead form on service page */
+.srv-detail__lead { padding-block: 8px 56px; }
+.srv-detail__lead-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 36px;
+  max-width: 720px;
+  margin-inline: auto;
+}
+.srv-detail__lead-head { margin-bottom: 24px; }
+.srv-detail__lead-head .srv-detail__h2 { margin-bottom: 10px; }
+.srv-detail__lead-sub { font-size: 15px; line-height: 1.6; color: var(--muted); }
+.srv-form { display: flex; flex-direction: column; gap: 16px; }
+
 /* Footer back-link */
 .srv-detail__more { padding-bottom: 64px; }
 .srv-detail__back { font-size: 15px; font-weight: 600; color: var(--red); text-decoration: none; }
