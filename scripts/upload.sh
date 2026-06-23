@@ -27,6 +27,11 @@ command -v rsync >/dev/null || err "rsync не установлен локаль
 
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
+# Пререндер страниц услуг (SEO): обновляем /service/<slug>.html из services.json
+command -v node >/dev/null || err "node не установлен локально — нужен для пререндера страниц услуг"
+log "Пререндер страниц услуг..."
+node scripts/prerender-services.cjs
+
 log "Синхронизация проекта → $REMOTE:$APP_DIR"
 rsync -avz --delete \
   --exclude='.git/' \

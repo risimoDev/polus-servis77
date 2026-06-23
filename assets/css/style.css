@@ -2995,20 +2995,26 @@ blockquote { quotes: none; }
   background: var(--red);
 }
 
-/* Inline lead form on service page */
+/* Inline lead form on service page — тёмная карточка, как модалка/CTA-блок,
+   чтобы светлые поля формы (.field__input рассчитаны на тёмный фон) были видны */
 .srv-detail__lead { padding-block: 8px 56px; }
 .srv-detail__lead-card {
-  background: var(--white);
-  border: 1px solid var(--border);
+  background: var(--blue-dark);
+  border: 1px solid var(--border-light);
   border-radius: var(--r-md);
   padding: 36px;
   max-width: 720px;
   margin-inline: auto;
 }
 .srv-detail__lead-head { margin-bottom: 24px; }
-.srv-detail__lead-head .srv-detail__h2 { margin-bottom: 10px; }
+.srv-detail__lead-head .srv-detail__h2 { color: var(--white); margin-bottom: 10px; }
 .srv-detail__lead-sub { font-size: 15px; line-height: 1.6; color: var(--muted); }
 .srv-form { display: flex; flex-direction: column; gap: 16px; }
+.srv-form .modal__policy { margin-top: 2px; }
+
+@media (max-width: 560px) {
+  .srv-detail__lead-card { padding: 24px; }
+}
 
 /* Footer back-link */
 .srv-detail__more { padding-bottom: 64px; }
