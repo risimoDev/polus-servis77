@@ -3289,3 +3289,242 @@ blockquote { quotes: none; }
   .apps__aura { animation: none; }
   .ind-card__media { transition: none; }
 }
+
+/* ═══════════════ SERVICE DETAIL — конверсионный порядок блоков ═══════════════
+   Первый экран: что делаем · почему доверять · сколько стоит · куда нажать.
+   Далее: выгода → доказательства → что входит → цена → форма → статья (SEO). */
+
+/* Общий заголовок секций */
+.srv-block-h {
+  font-family: var(--font-head);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 10px 0 32px;
+}
+
+/* Грид-элемент героя должен сжиматься, иначе длинный чип/цена ломают вёрстку
+   на узких экранах (min-width:auto → горизонтальный оверфлоу под overflow-x:hidden) */
+.srv-detail__hero-text { min-width: 0; }
+
+/* ── Первый экран: чипы-доказательства ── */
+.srv-hero__chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+.srv-hero__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 100%;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 100px;
+  padding: 7px 14px;
+}
+.srv-hero__chip svg { color: var(--red); flex-shrink: 0; }
+
+/* ── Первый экран: ценовой ориентир ── */
+.srv-hero__price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
+  padding: 13px 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-left: 3px solid var(--red);
+  border-radius: var(--r-sm);
+}
+.srv-hero__price-label {
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.5);
+}
+.srv-hero__price-val {
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+}
+.srv-hero__price-from { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.55); }
+
+/* ── ВЫГОДА ── */
+.srv-benefits { padding-block: clamp(48px, 6vw, 72px) clamp(40px, 5vw, 56px); }
+.srv-benefits__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.srv-benefit {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 26px 24px;
+  transition: border-color var(--dur), box-shadow var(--dur), transform var(--dur);
+}
+.srv-benefit:hover {
+  border-color: var(--red);
+  box-shadow: 0 14px 34px rgba(13,21,38,0.08);
+  transform: translateY(-3px);
+}
+.srv-benefit__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px; height: 38px;
+  border-radius: 11px;
+  background: var(--red);
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.srv-benefit__title { font-family: var(--font-head); font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.srv-benefit__text { font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+
+/* ── ДОКАЗАТЕЛЬСТВА ── */
+.srv-proof { padding-bottom: clamp(40px, 5vw, 56px); }
+.srv-proof__strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+.srv-proof__item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background: var(--white);
+  padding: 20px 22px;
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.srv-proof__item svg { color: var(--red); flex-shrink: 0; }
+
+/* ── ЧТО ВХОДИТ ── */
+.srv-included { padding-bottom: clamp(44px, 5vw, 64px); }
+.srv-included__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 32px; }
+.srv-included__grid li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--ink-mid);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.srv-included__grid li svg { color: var(--red); flex-shrink: 0; margin-top: 3px; }
+
+/* ── ЦЕНА-ОРИЕНТИР ── */
+.srv-price { padding-bottom: clamp(44px, 5vw, 64px); }
+.srv-price__card {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr auto;
+  align-items: center;
+  gap: 32px;
+  background: var(--blue-dark);
+  border-radius: var(--r-lg);
+  padding: 36px 40px;
+}
+.srv-price__main .section-label { color: rgba(255,255,255,0.65); border-color: rgba(255,255,255,0.14); }
+.srv-price__value {
+  font-family: var(--font-head);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.05;
+  margin-top: 12px;
+}
+.srv-price__from { font-size: 0.5em; font-weight: 500; color: rgba(255,255,255,0.55); }
+.srv-price__note { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.6); margin-top: 10px; max-width: 320px; }
+.srv-price__list { display: flex; flex-direction: column; gap: 12px; }
+.srv-price__list li { display: flex; align-items: center; gap: 11px; font-size: 14.5px; color: rgba(255,255,255,0.88); }
+.srv-price__list li svg { color: var(--red); flex-shrink: 0; }
+.srv-price__cta { display: flex; flex-direction: column; align-items: stretch; gap: 12px; min-width: 210px; }
+.srv-price__phone {
+  text-align: center;
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--white);
+  text-decoration: none;
+}
+.srv-price__phone:hover { color: var(--red); }
+
+/* Якорь формы не прячется под фикс-шапку */
+#zayavka { scroll-margin-top: 90px; }
+/* Форма следует сразу за ценой — свой верхний отступ */
+.srv-detail__lead { padding-block: clamp(8px, 2vw, 20px) clamp(48px, 6vw, 64px); }
+
+/* ── ПОДРОБНО (SEO longread) ── */
+.srv-longread {
+  padding-block: clamp(48px, 6vw, 72px);
+  border-top: 1px solid var(--border);
+  background: var(--white);
+}
+.srv-longread__inner { max-width: 860px; }
+.srv-longread__h3 { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: var(--ink); margin: 0 0 18px; }
+.srv-longread .srv-detail__block { margin-top: 40px; margin-bottom: 0; }
+.srv-longread .srv-detail__intro { margin-bottom: 8px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .srv-benefits__grid { grid-template-columns: 1fr; }
+  .srv-proof__strip { grid-template-columns: 1fr 1fr; }
+  .srv-price__card { grid-template-columns: 1fr; gap: 24px; }
+  .srv-price__cta { min-width: 0; }
+  .srv-price__note { max-width: none; }
+}
+@media (max-width: 560px) {
+  .srv-included__grid { grid-template-columns: 1fr; }
+  .srv-proof__strip { grid-template-columns: 1fr; }
+  .srv-hero__price { flex-direction: column; align-items: flex-start; gap: 4px; }
+}
+
+/* ═══════════ ЛИПКАЯ ПАНЕЛЬ БЫСТРОЙ СВЯЗИ (моб.) ═══════════
+   Крупные кнопки «Позвонить» и «Telegram» всегда внизу экрана. */
+.mobile-bar { display: none; }
+
+@media (max-width: 768px) {
+  .mobile-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 450;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: rgba(6, 12, 24, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--border-light);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.28);
+  }
+  .mobile-bar__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 54px;
+    border-radius: var(--r-sm);
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--white);
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.12s var(--ease), filter 0.12s var(--ease);
+  }
+  .mobile-bar__btn svg { flex-shrink: 0; }
+  .mobile-bar__btn--call { background: var(--red); }
+  .mobile-bar__btn--tg   { background: #2AABEE; }
+  .mobile-bar__btn:active { transform: translateY(1px); filter: brightness(0.92); }
+
+  /* Контент и футер не должны прятаться под панелью */
+  body.has-mobile-bar { padding-bottom: calc(74px + env(safe-area-inset-bottom, 0px)); }
+}

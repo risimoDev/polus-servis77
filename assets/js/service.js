@@ -71,8 +71,33 @@
     const badge = s.soon
       ? '<span class="srv-detail__badge">Скоро</span>' : '';
 
+    // Иконка-галочка (без эмодзи) — переиспользуется в выгодах, доказательствах, составе
+    const CHECK = '<svg viewBox="0 0 20 20" width="15" height="15" fill="none" aria-hidden="true"><path d="M4 10.5l3.5 3.5L16 5.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+    // ── Первый экран: краткие доказательства-чипы (первые 3 из proof) ──
+    const heroTrust = (s.proof || []).slice(0, 3).map(p =>
+      `<span class="srv-hero__chip">${CHECK}${esc(p)}</span>`).join('');
+
+    // ── Первый экран: ценовой ориентир ──
+    const priceLead = s.priceFrom
+      ? `<span class="srv-hero__price-from">от</span> ${esc(s.priceFrom)}`
+      : 'Бесплатный расчёт и КП';
+
+    // ── Выгоды (что клиент получает) ──
+    const benefits = (s.benefits || []).map(b => `
+      <article class="srv-benefit">
+        <span class="srv-benefit__icon" aria-hidden="true">${CHECK}</span>
+        <h3 class="srv-benefit__title">${esc(b.title)}</h3>
+        <p class="srv-benefit__text">${esc(b.text)}</p>
+      </article>`).join('');
+
+    // ── Доказательства (полоса доверия) ──
+    const proof = (s.proof || []).map(p =>
+      `<div class="srv-proof__item">${CHECK}<span>${esc(p)}</span></div>`).join('');
+
+    // ── Что входит ──
     const features = (s.features || []).map(f =>
-      `<li>${esc(f)}</li>`).join('');
+      `<li>${CHECK}<span>${esc(f)}</span></li>`).join('');
 
     const steps = (s.process || []).map((p, i) => `
       <li class="srv-step">
@@ -95,6 +120,7 @@
       </details>`).join('');
 
     root.innerHTML = `
+      <!-- ПЕРВЫЙ ЭКРАН: что делаем · почему доверять · сколько стоит · куда нажать -->
       <section class="srv-detail__hero">
         <div class="container">
           <p class="srv-detail__breadcrumb">
@@ -106,8 +132,16 @@
               <div class="section-label">Услуга ${esc(s.num || '')}</div>
               <h1 class="srv-detail__title">${esc(heading)} ${badge}</h1>
               <p class="srv-detail__summary">${esc(s.subtitle || s.summary)}</p>
+
+              ${heroTrust ? `<div class="srv-hero__chips">${heroTrust}</div>` : ''}
+
+              <div class="srv-hero__price">
+                <span class="srv-hero__price-label">Стоимость</span>
+                <span class="srv-hero__price-val">${priceLead}</span>
+              </div>
+
               <div class="srv-detail__hero-cta">
-                <a href="#" class="btn btn--primary js-modal-open">Оставить заявку</a>
+                <a href="#zayavka" class="btn btn--primary">Оставить заявку</a>
                 <a href="tel:+79299233392" class="btn btn--outline">+7 929 92-333-92</a>
               </div>
             </div>
@@ -118,47 +152,56 @@
         </div>
       </section>
 
-      <div class="srv-detail__body">
-        <div class="container srv-detail__layout">
-          <div class="srv-detail__main">
-
-            ${s.intro ? `<section class="srv-detail__block">
-              <p class="srv-detail__intro">${esc(s.intro)}</p>
-            </section>` : ''}
-
-            ${article
-              ? `<article class="srv-article">${article}</article>`
-              : `${steps ? `<section class="srv-detail__block">
-              <h2 class="srv-detail__h2">Как это происходит</h2>
-              <ol class="srv-steps" role="list">${steps}</ol>
-            </section>` : ''}`}
-
-            ${gallery ? `<section class="srv-detail__block">
-              <h2 class="srv-detail__h2">Фотографии</h2>
-              <div class="srv-gallery">${gallery}</div>
-            </section>` : ''}
-
-            ${faq ? `<section class="srv-detail__block">
-              <h2 class="srv-detail__h2">Частые вопросы</h2>
-              <div class="srv-faq">${faq}</div>
-            </section>` : ''}
-
-          </div>
-
-          <aside class="srv-detail__aside">
-            ${features ? `<div class="srv-detail__card">
-              <h2 class="srv-detail__card-h">Что входит</h2>
-              <ul class="srv-detail__features" role="list">${features}</ul>
-            </div>` : ''}
-            <div class="srv-detail__card srv-detail__card--cta">
-              <h2 class="srv-detail__card-h">Нужна консультация?</h2>
-              <p class="srv-detail__card-text">Перезвоним в течение 15 минут в рабочее время и поможем с подбором.</p>
-              <a href="#" class="btn btn--primary btn--block js-modal-open">Оставить заявку</a>
-            </div>
-          </aside>
+      <!-- ВЫГОДА -->
+      ${benefits ? `<section class="srv-benefits">
+        <div class="container">
+          <div class="section-label">Почему выбирают нас</div>
+          <h2 class="srv-block-h">Что вы получаете</h2>
+          <div class="srv-benefits__grid">${benefits}</div>
         </div>
-      </div>
+      </section>` : ''}
 
+      <!-- ДОКАЗАТЕЛЬСТВА -->
+      ${proof ? `<section class="srv-proof">
+        <div class="container">
+          <div class="srv-proof__strip">${proof}</div>
+        </div>
+      </section>` : ''}
+
+      <!-- ЧТО ВХОДИТ -->
+      ${features ? `<section class="srv-included">
+        <div class="container">
+          <div class="section-label">Состав услуги</div>
+          <h2 class="srv-block-h">Что входит</h2>
+          <ul class="srv-included__grid" role="list">${features}</ul>
+        </div>
+      </section>` : ''}
+
+      <!-- ЦЕНА-ОРИЕНТИР -->
+      <section class="srv-price">
+        <div class="container">
+          <div class="srv-price__card">
+            <div class="srv-price__main">
+              <div class="section-label">Стоимость</div>
+              <div class="srv-price__value">${s.priceFrom
+                ? `<span class="srv-price__from">от</span> ${esc(s.priceFrom)}`
+                : 'Индивидуальный расчёт'}</div>
+              ${s.priceNote ? `<p class="srv-price__note">${esc(s.priceNote)}</p>` : ''}
+            </div>
+            <ul class="srv-price__list" role="list">
+              <li>${CHECK}<span>Бесплатный расчёт и КП</span></li>
+              <li>${CHECK}<span>Договор, НДС, гарантия</span></li>
+              <li>${CHECK}<span>Ответ в течение 1 рабочего дня</span></li>
+            </ul>
+            <div class="srv-price__cta">
+              <a href="#zayavka" class="btn btn--primary btn--block">Рассчитать стоимость</a>
+              <a href="tel:+79299233392" class="srv-price__phone">+7 929 92-333-92</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ФОРМА -->
       <section class="srv-detail__lead" id="zayavka" aria-labelledby="srv-lead-title">
         <div class="container">
           <div class="srv-detail__lead-card">
@@ -199,6 +242,33 @@
           </div>
         </div>
       </section>
+
+      <!-- ПОДРОБНО (SEO): статья, фото, вопросы — внизу страницы -->
+      ${(s.intro || article || steps || gallery || faq) ? `<section class="srv-longread">
+        <div class="container srv-longread__inner">
+          <div class="section-label">Подробно</div>
+          <h2 class="srv-block-h">Об услуге</h2>
+
+          ${s.intro ? `<p class="srv-detail__intro">${esc(s.intro)}</p>` : ''}
+
+          ${article
+            ? `<article class="srv-article">${article}</article>`
+            : (steps ? `<div class="srv-detail__block">
+                <h3 class="srv-longread__h3">Как это происходит</h3>
+                <ol class="srv-steps" role="list">${steps}</ol>
+              </div>` : '')}
+
+          ${gallery ? `<div class="srv-detail__block">
+            <h3 class="srv-longread__h3">Фотографии</h3>
+            <div class="srv-gallery">${gallery}</div>
+          </div>` : ''}
+
+          ${faq ? `<div class="srv-detail__block">
+            <h3 class="srv-longread__h3">Частые вопросы</h3>
+            <div class="srv-faq">${faq}</div>
+          </div>` : ''}
+        </div>
+      </section>` : ''}
 
       <div class="srv-detail__more container">
         <a href="index.html#services" class="srv-detail__back">← Все услуги</a>
