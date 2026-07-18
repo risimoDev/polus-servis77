@@ -3420,6 +3420,45 @@ blockquote { quotes: none; }
 }
 .srv-included__grid li svg { color: var(--red); flex-shrink: 0; margin-top: 3px; }
 
+/* ── КАТАЛОГ: варианты моделей ── */
+.srv-catalog { padding-bottom: clamp(44px, 5vw, 64px); }
+.srv-catalog__card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  background: var(--blue-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px 32px;
+}
+.srv-catalog__h { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.srv-catalog__text p { font-size: 15px; line-height: 1.55; color: var(--muted); }
+.srv-catalog__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--ink);
+  border-radius: 100px;
+  padding: 13px 24px;
+  text-decoration: none;
+  transition: background var(--dur), color var(--dur), border-color var(--dur);
+}
+.srv-catalog__btn:hover { background: var(--red); border-color: var(--red); color: var(--white); }
+.srv-catalog__btn svg { transition: transform var(--dur); }
+.srv-catalog__btn:hover svg { transform: translateX(3px); }
+@media (max-width: 560px) {
+  .srv-catalog__card { flex-direction: column; align-items: flex-start; padding: 24px; }
+  .srv-catalog__btn { width: 100%; justify-content: center; }
+}
+
 /* ── ЦЕНА-ОРИЕНТИР ── */
 .srv-price { padding-bottom: clamp(44px, 5vw, 64px); }
 .srv-price__card {

@@ -83,6 +83,10 @@
       ? `<span class="srv-hero__price-from">от</span> ${esc(s.priceFrom)}`
       : 'Бесплатный расчёт и КП';
 
+    // ── Ссылка на каталог (варианты моделей) ──
+    const catUrl  = (s.catalog && s.catalog.url)  || 'catalog.html';
+    const catText = (s.catalog && s.catalog.text) || 'Посмотреть варианты в каталоге';
+
     // ── Выгоды (что клиент получает) ──
     const benefits = (s.benefits || []).map(b => `
       <article class="srv-benefit">
@@ -176,6 +180,22 @@
           <ul class="srv-included__grid" role="list">${features}</ul>
         </div>
       </section>` : ''}
+
+      <!-- КАТАЛОГ: варианты моделей -->
+      <section class="srv-catalog">
+        <div class="container">
+          <div class="srv-catalog__card">
+            <div class="srv-catalog__text">
+              <h2 class="srv-catalog__h">Хотите посмотреть конкретные варианты?</h2>
+              <p>В каталоге — модели, размеры и цены. Поможем подобрать под вашу задачу.</p>
+            </div>
+            <a href="${esc(catUrl)}" class="srv-catalog__btn">
+              ${esc(catText)}
+              <svg viewBox="0 0 20 20" fill="none" width="16" height="16" aria-hidden="true"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
 
       <!-- ЦЕНА-ОРИЕНТИР -->
       <section class="srv-price">
